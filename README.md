@@ -8,12 +8,12 @@ Features:
 * Course Management:
     * Add/Edit/Delete a course.
     * View a list of all courses.
-    * See how much of the course has already passed (in percentage)
+    * See how much of the course has already passed (in percentage).
 
 * Subject Management (within a course):
     * Add/Edit/Delete a subject.
     * View a list of all subjects under a specific course. 
-    * See how much of the course has already passed (in percentage)
+    * See how much of the course has already passed (in percentage).
 
 * Assignment & Course Requirement Management (within a subject):
     * Add/Edit/Delete assignments or course requirements.
@@ -28,7 +28,7 @@ Features:
 * Deadline Management:
     * Calendar view to see upcoming deadlines.
     * Notification system to alert users of approaching deadlines.
-    * The list of unfilled deadlines for the assignments
+    * The list of unfilled deadlines for the assignments.
 
 * Study Planning:
     * Allocate specific study times for each subject or assignment.
@@ -37,10 +37,11 @@ Features:
 * Performance Tracking:
     * Mark assignments as completed.
     * Track grades or feedback for assignments.
-    * Overview of performance across subjects
-    * Track invested time into the specific assignment 
-    * See your weekly progress
+    * Overview of performance across subjects.
+    * Track invested time into the specific assignment.
+    * See your weekly progress.
 
 * Data Backup and Export:
     * Option to backup user data.
-    * Export data in CSV or similar formats for external use.
+    * Export app data for external use.
+    * Export and import Calendar data in ICS format.
