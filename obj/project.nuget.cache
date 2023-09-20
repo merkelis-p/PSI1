@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "/2DWtMlZOr0MTRUOSfihY7olJ9ATo8ps4gVrpKA3aGeH9J6k99U1Bgae67sRumTBzMIYtT57VY9yr02gKLIqdA==",
+  "dgSpecHash": "QPqqmcgYY50ItWBSd+7HKY3ztW5FJC5Z058qgszZRPMI8/RMa3/vpH3Z+O7uAL2SnGld0H0Rwq6ffuYzVY+rZg==",
   "success": true,
-  "projectFilePath": "/Users/darbokompiuteris/Desktop/BlazorApp/BlazorApp.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Main Files\\Programing\\PSI RETake\\Pratybos\\Pratybos.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\BigDaddy\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\BigDaddy\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\BigDaddy\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\BigDaddy\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\BigDaddy\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\BigDaddy\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
   "logs": []
 }
