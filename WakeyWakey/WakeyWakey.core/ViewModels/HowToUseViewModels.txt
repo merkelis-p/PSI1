@@ -1,0 +1,4 @@
+n a MVVM (Model-View-ViewModel) architecture, view
+models are responsible for presenting data to the
+views (UI) and handling user interactions. Each view
+or page in your app may have a corresponding view model.

@@ -1,0 +1,3 @@
+ "Views" for XAML files defining your app's user interface,
+ "Converters" for value converters in your UI, "Resources"
+ for static resources, and more.

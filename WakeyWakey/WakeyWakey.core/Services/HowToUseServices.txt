@@ -1,0 +1,4 @@
+Services are responsible for various tasks like making
+API requests, managing local databases, handling
+navigation, and more. Each service class should
+have a specific responsibility.

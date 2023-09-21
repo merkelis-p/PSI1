@@ -1,0 +1,1 @@
+Helper classes contain reusable code and utility methods that are used throughout your application. These can include constants, validation methods, and other helper functions.
