@@ -1,10 +1,10 @@
--[] Creating and using your own class, struct, record and enum;
--[] Property usage in struct and class;
--[] Named and optional argument usage;
--[] Extension method usage;
--[] Iterating through collection the right way;
--[] Reading from a file using a stream;
--[] Create and use at least 1 generic type;
--[] Boxing and unboxing;
--[] LINQ to Objects usage (methods or queries);
--[] Implement at least one of the standard .NET interfaces (IEnumerable, IComparable, IComparer, IEquatable, IEnumerator, etc.)
+-[ ] Creating and using your own class, struct, record and enum;
+-[ ] Property usage in struct and class;
+-[ ] Named and optional argument usage;
+-[ ] Extension method usage;
+-[ ] Iterating through collection the right way;
+-[ ] Reading from a file using a stream;
+-[ ] Create and use at least 1 generic type;
+-[ ] Boxing and unboxing;
+-[ ] LINQ to Objects usage (methods or queries);
+-[ ] Implement at least one of the standard .NET interfaces (IEnumerable, IComparable, IComparer, IEquatable, IEnumerator, etc.)
