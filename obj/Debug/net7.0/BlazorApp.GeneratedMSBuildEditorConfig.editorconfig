@@ -9,49 +9,49 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BlazorApp
 build_property.RootNamespace = BlazorApp
-build_property.ProjectDir = /Users/darbokompiuteris/Desktop/BlazorApp/
+build_property.ProjectDir = /Users/darbokompiuteris/Desktop/PSI1/
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/darbokompiuteris/Desktop/BlazorApp
+build_property.MSBuildProjectDirectory = /Users/darbokompiuteris/Desktop/PSI1
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/App.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Pages/Counter.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Pages/FetchData.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Pages/Index.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Shared/SurveyPrompt.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/Shared/SurveyPrompt.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/_Imports.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Shared/MainLayout.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-3ij3p7wwc4
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Shared/NavMenu.razor]
+[/Users/darbokompiuteris/Desktop/PSI1/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-wk4bcz64v1
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Pages/Error.cshtml]
+[/Users/darbokompiuteris/Desktop/PSI1/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/darbokompiuteris/Desktop/BlazorApp/Pages/_Host.cshtml]
+[/Users/darbokompiuteris/Desktop/PSI1/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

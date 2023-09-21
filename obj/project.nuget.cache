@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/2DWtMlZOr0MTRUOSfihY7olJ9ATo8ps4gVrpKA3aGeH9J6k99U1Bgae67sRumTBzMIYtT57VY9yr02gKLIqdA==",
+  "dgSpecHash": "S2V9YiB60kgc40jaexg4q8hjyQbIUI/EdnV+qsPU4T7svOv4Bxw21fjscn3D4KnPH9O+kyX6ZqScF6l+ZyeYnQ==",
   "success": true,
-  "projectFilePath": "/Users/darbokompiuteris/Desktop/BlazorApp/BlazorApp.csproj",
+  "projectFilePath": "/Users/darbokompiuteris/Desktop/PSI1/BlazorApp.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
