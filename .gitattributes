@@ -1,0 +1,10 @@
+# Set the default behavior
+* text=auto
+
+# Define line endings explicitly for specific files
+*.crlf text eol=crlf
+*.lf text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
