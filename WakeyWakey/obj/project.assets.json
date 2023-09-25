@@ -18450,11 +18450,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey/WakeyWakey.csproj",
+      "projectUniqueName": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey.csproj",
       "projectName": "WakeyWakey",
-      "projectPath": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey/WakeyWakey.csproj",
+      "projectPath": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey.csproj",
       "packagesPath": "/Users/darbokompiuteris/.nuget/packages/",
-      "outputPath": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey/obj/",
+      "outputPath": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/obj/",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [

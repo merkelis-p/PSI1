@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5sePYdLDtX4wivbNkbcWVMs/WyaSkI2lO/u8lg9FVfIvrzkj756RrnxK8IhxNkhbr+ZSgzCBcc8JHb3FLZWTmA==",
+  "dgSpecHash": "eYHsY5mkTcakHMdmRN6xZpFpIe/d6qJ7Ae4jtZx3I2ZsMDCCC4AkP+Xnq7Gk4kHq/1GtmIhMymRFAoxpw19XBA==",
   "success": true,
-  "projectFilePath": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey/WakeyWakey.csproj",
+  "projectFilePath": "/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/WakeyWakey.csproj",
   "expectedPackageFiles": [
     "/Users/darbokompiuteris/.nuget/packages/googlegson/2.9.1.1/googlegson.2.9.1.1.nupkg.sha512",
     "/Users/darbokompiuteris/.nuget/packages/microsoft.extensions.configuration/7.0.0/microsoft.extensions.configuration.7.0.0.nupkg.sha512",
