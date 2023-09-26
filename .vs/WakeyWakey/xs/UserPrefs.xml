@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{9F5D2971-ABE6-428E-B350-B2B4731C0667}|Default">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/MainPage.xaml.cs">
+    <Files>
+      <File FileName="WakeyWakey/App.xaml" />
+      <File FileName=".vs/WakeyWakey/xs/project-cache/WakeyWakey-Debug-net7.0-android.json" />
+      <File FileName="WakeyWakey/AppShell.xaml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/MauiProgram.cs" Line="9" Column="41" />
+      <File FileName="WakeyWakey/MainPage.xaml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/MainPage.xaml.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WakeyWakey" expanded="True">
+            <Node name="WakeyWakey">
+              <Node name="AppShell.xaml" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True">
+                <Node name="MainPage.xaml.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

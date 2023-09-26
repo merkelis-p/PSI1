@@ -1,5 +1,4 @@
 # Set the default behavior
-# * text=auto
 
 # Define line endings explicitly for specific files
 *.crlf text eol=crlf
