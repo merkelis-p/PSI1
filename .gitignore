@@ -65,3 +65,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 
+# Specific project cache files
+.vs/WakeyWakey/xs/project-cache/WakeyWakey-Debug-net7.0-ios.json
+.vs/WakeyWakey/xs/project-cache/WakeyWakey-Debug-net7.0-maccatalyst.json
+.vs/WakeyWakey/xs/project-cache/WakeyWakey-Debug-net7.0-android.json
+
