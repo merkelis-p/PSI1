@@ -35,6 +35,10 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Center" />
 
+            <Button
+                Text="Upload Calendar File"
+                Clicked="OnUploadButtonClick" />
+
         </VerticalStackLayout>
     </ScrollView>
 
