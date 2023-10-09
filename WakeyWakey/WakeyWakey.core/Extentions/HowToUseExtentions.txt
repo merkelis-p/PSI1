@@ -1,4 +1,0 @@
- Extension methods allow you to add functionality to existing
- types without modifying their source code. For example,
- you might have extension methods for string manipulation
- or date formatting.

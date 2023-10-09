@@ -1,4 +1,0 @@
-This folder typically contains your data model classes.
-These classes define the structure of your application's
-data entities,such as user profiles, products, or
-any other data you need to work with.
