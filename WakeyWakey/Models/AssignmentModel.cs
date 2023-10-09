@@ -19,6 +19,8 @@ namespace WakeyWakey.WakeyWakey.core.Models
 
         public DateTime OverallDuration { get; set; }
 
+        public AssignmentStatus Status { get; set; }
+
     }
 }
 
