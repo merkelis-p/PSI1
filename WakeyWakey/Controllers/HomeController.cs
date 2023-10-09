@@ -28,6 +28,11 @@ public class HomeController : Controller
         return View();
     }
 
+    public IActionResult Register()
+    {
+        return View();
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
@@ -38,6 +43,13 @@ public class HomeController : Controller
     public IActionResult Login(string username, string password)
     {
         // Handle login logic here
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpPost]
+    public IActionResult Register(string username, string password, string email)
+    {
+        // Handle registration logic here
         return RedirectToAction("Index", "Home");
     }
 }
