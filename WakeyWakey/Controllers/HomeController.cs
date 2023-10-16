@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WakeyWakey.Models;
+using System.Collections.Generic;
 
 namespace WakeyWakey.Controllers;
 
@@ -14,11 +15,6 @@ public class HomeController : Controller
     }
 
     public IActionResult Index()
-    {
-        return View();
-    }
-
-    public IActionResult Privacy()
     {
         return View();
     }
@@ -52,5 +48,26 @@ public class HomeController : Controller
         // Handle registration logic here
         return RedirectToAction("Index", "Home");
     }
+
+    
+    /*private List<Course> courses = new List<Course>
+    {
+        new Course { Id = 1, Name = "Course 1" },
+        new Course { Id = 2, Name = "Course 2" }
+    };
+
+    public IActionResult CreateCourse(string courseName)
+    {
+        var newCourse = new Course
+        {
+            Id = courses.Count + 1,
+            Name = courseName
+        };
+
+        courses.Add(newCourse);
+
+        return RedirectToAction("Course");
+    }*/
+
 }
 

@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "Update courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Update course</h2>
+@using (Html.BeginForm("UpdateCourse", "Course", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.Partial("~/Views/Course/Partial/CourseForm.cshtml")
+}
