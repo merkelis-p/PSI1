@@ -4,16 +4,16 @@ using WakeyWakey.Services;
 
 public class SubjectController : Controller
 {
-    private readonly SubjectRepository _subjectRepository;
+    private readonly SubjectStreamReader _subjectStreamReader;
 
-    public SubjectController(SubjectRepository subjectRepository)
+    public SubjectController(SubjectStreamReader subjectStreamReader)
     {
-        _subjectRepository = subjectRepository;
+        _subjectStreamReader = subjectStreamReader;
     }
 
     public IActionResult Index()
     {
-        var subjects = _subjectRepository.GetAllSubjects(); // extention method fulfilled
+        var subjects = _subjectStreamReader.GetAllSubjects(); // extention method fulfilled
         return View(subjects);
     }
 
@@ -27,7 +27,7 @@ public class SubjectController : Controller
     {
         if (ModelState.IsValid)
         {
-            _subjectRepository.AddSubject(subject);
+            _subjectStreamReader.AddSubject(subject);
             return RedirectToAction("Index");
         }
         return View(subject);
@@ -35,7 +35,7 @@ public class SubjectController : Controller
 
     public IActionResult Edit(int id)
     {
-        var subject = _subjectRepository.GetSubject(id);
+        var subject = _subjectStreamReader.GetSubject(id);
         if (subject == null)
         {
             return NotFound();
@@ -48,7 +48,7 @@ public class SubjectController : Controller
     {
         if (ModelState.IsValid)
         {
-            _subjectRepository.UpdateSubject(subject);
+            _subjectStreamReader.UpdateSubject(subject);
             return RedirectToAction("Index");
         }
         return View(subject);
@@ -56,7 +56,7 @@ public class SubjectController : Controller
 
     public IActionResult Delete(int id)
     {
-        var subject = _subjectRepository.GetSubject(id);
+        var subject = _subjectStreamReader.GetSubject(id);
         if (subject == null)
         {
             return NotFound();
@@ -67,7 +67,7 @@ public class SubjectController : Controller
     [HttpPost]
     public IActionResult DeleteConfirmed(int id)
     {
-        _subjectRepository.DeleteSubject(id);
+        _subjectStreamReader.DeleteSubject(id);
         return RedirectToAction("Index");
     }
 }

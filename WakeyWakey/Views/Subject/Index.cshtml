@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<WakeyWakey.Models.SubjectModel>
+@{
+    ViewData["Title"] = "My subjects";
+}
+<head>
+    <link rel="stylesheet" href="~/css/SubjectFront.css" asp-append-version="true" />
+</head>
 
-<h1>Subjects</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>

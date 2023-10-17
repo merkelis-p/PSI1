@@ -6,12 +6,12 @@ using WakeyWakey.Models;
 
 namespace WakeyWakey.Services;
 
-public class SubjectRepository
+public class SubjectStreamReader
 {
     private List<SubjectModel> _subjects;
-    private readonly string _dataFilePath = "Subjects.csv";
+    private readonly string _dataFilePath = "Services/Subjects.csv";
 
-    public SubjectRepository()
+    public SubjectStreamReader()
     {
         _subjects = LoadSubjectsFromCsv();
     }
@@ -21,14 +21,13 @@ public class SubjectRepository
         return _subjects;
     }
 
-    public SubjectModel GetSubject(int id)
-    {
-        return _subjects.FirstOrDefault(s => s.Id == id);
-    }
+    public SubjectModel GetSubject(int id) =>
+        _subjects.FirstOrDefault(s => s.Id == id);
 
     public void AddSubject(SubjectModel subject)
     {
-        subject.Id = _subjects.Max(s => s.Id) + 1;
+        subject.Id = _subjects.Max(i => i.Id) + 1;
+        subject.CourseId = _subjects.Max(i => i.CourseId) + 1;
         _subjects.Add(subject);
         SaveSubjectsToCsv();
     }
@@ -38,7 +37,6 @@ public class SubjectRepository
         var existingSubject = _subjects.FirstOrDefault(s => s.Id == updatedSubject.Id);
         if (existingSubject != null)
         {
-            // Update the properties of the existing subject.
             existingSubject.Name = updatedSubject.Name;
             existingSubject.Description = updatedSubject.Description;
             existingSubject.StartDateTime = updatedSubject.StartDateTime;
@@ -65,28 +63,40 @@ public class SubjectRepository
         {
             using (var reader = new StreamReader(_dataFilePath))
             {
-                // Skip the header line.
                 reader.ReadLine();
-
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
                     var values = line.Split(',');
-                    if (values.Length >= 5)
-                    {
-                        var subject = new SubjectModel
-                        {
+                    if (values.Length >= 5) {
+                        var subject = new SubjectModel {
                             Id = int.Parse(values[0]),
                             CourseId = int.Parse(values[1]),
                             Name = values[2],
-                            Description = values[3],
-                            StartDateTime = DateTime.Parse(values[4]),
-                            EndDateTime = DateTime.Parse(values[5])
+                            Description = values[3]
                         };
+
+                        DateTime startDateTime;
+                        if (DateTime.TryParse(values[4], out startDateTime)) {
+                            subject.StartDateTime = startDateTime;
+                        }
+                        else {
+                            subject.StartDateTime = null;
+                        }
+
+                        DateTime endDateTime;
+                        if (DateTime.TryParse(values[5], out endDateTime)) {
+                            subject.EndDateTime = endDateTime;
+                        }
+                        else {
+                            subject.EndDateTime = null;
+                        }
+
                         subjects.Add(subject);
                     }
                 }
             }
+
         }
 
         return subjects;
@@ -94,15 +104,12 @@ public class SubjectRepository
 
     private void SaveSubjectsToCsv()
     {
-        using (var writer = new StreamWriter(_dataFilePath))
-        {
-            // Write the header line.
-            writer.WriteLine("Id,CourseId,Name,Description,StartDateTime,EndDateTime");
+        using var writer = new StreamWriter(_dataFilePath);
+        writer.WriteLine("Id,CourseId,Name,Description,StartDateTime,EndDateTime");
 
-            foreach (var subject in _subjects)
-            {
-                writer.WriteLine($"{subject.Id},{subject.CourseId},{subject.Name},{subject.Description},{subject.StartDateTime},{subject.EndDateTime}");
-            }
+        foreach (var subject in _subjects)
+        {
+            writer.WriteLine($"{subject.Id},{subject.CourseId},{subject.Name},{subject.Description},{subject.StartDateTime},{subject.EndDateTime}");
         }
     }
 }
