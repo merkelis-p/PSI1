@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WakeyWakey.Models.SubjectModel>
+
+<h1>Subjects</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>CourseId</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subject in Model)
+        {
+            <tr>
+                <td>@subject.Id</td>
+                <td>@subject.CourseId</td>
+                <td>@subject.Name</td>
+                <td>@subject.Description</td>
+                <td>@subject.StartDateTime</td>
+                <td>@subject.EndDateTime</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@subject.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@subject.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@subject.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
