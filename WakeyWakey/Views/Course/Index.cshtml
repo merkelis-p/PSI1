@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "My courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>@ViewData["Title"]</h1>
+@model List<WakeyWakey.Models.Course>
+
+<span id="Date"></span>
+<input id="GetDateWithJson" type="submit" value="Get Date" />
+<input type="submit" value="go to update course" onclick="window.location.href='Course/UpdateCourse'"/>
+<input type="submit" value="go to add course" onclick="window.location.href='Course/AddCourse'" />
+<br />
+<p>
+    StudentID=@ViewData["StudentID"]
+</p>
+<br />
+<p>
+    Description : @ViewBag.Description
+</p>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Name</td>
+        </tr>
+    }
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#GetDateWithJson").click(
+            function () {
+                $.ajax({
+                    url: "@Url.Action("GetDateWithJson", "Course")",
+                    type: "POST",
+                    success: function (result) {
+                        $("#Date").html(result);
+                    }
+                })
+            }
+        );
+    });
+</script>
+
