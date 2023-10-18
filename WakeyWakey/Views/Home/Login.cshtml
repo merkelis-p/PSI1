@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Login";
 }
 
 <style>
@@ -14,10 +14,22 @@
     }
 </style>
 
+
 <div class="login-container">
+
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <p>@error.ErrorMessage</p>
+            }
+        </div>
+    }
     <h1 class="display-4">Wakey Wakey - Login</h1>
 
-    <form method="post" action="/login">
+    <form method="post" asp-controller="Home" asp-action="Login">
         <!-- Assuming you have a login endpoint set up -->
         <div class="form-group">
             <label for="username">Username:</label><br>
@@ -29,8 +41,13 @@
             <input type="password" class="form-control login-input" id="password" name="password" required>
         </div>
 
+
+
+
+
+
         <button type="submit" class="btn btn-primary">Login</button>
     </form>
 
-    <p>Don't have an account? <a href="/Account/Register">Register here</a>.</p>
+    <p>Don't have an account? <a href="/Home/Register">Register here</a>.</p>
 </div>

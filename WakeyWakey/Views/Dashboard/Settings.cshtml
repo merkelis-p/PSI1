@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Wakey Wakey - Settings</h1>
+
+
+</div>
+<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Upload">
+    <label for="icsFile">Upload your calendar (ICS format)</label>
+    <input type="file" name="icsFile" accept=".ics" />
+    <button type="submit">Upload</button>
+</form>
