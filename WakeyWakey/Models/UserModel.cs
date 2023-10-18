@@ -2,7 +2,7 @@ using System;
 
 namespace WakeyWakey.Models;
 
-public class UserModel
+public struct UserModel
 {
     public int Id { get; set; }
     public String Username { get; set; }

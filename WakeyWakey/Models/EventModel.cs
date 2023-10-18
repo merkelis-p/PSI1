@@ -4,7 +4,7 @@ namespace WakeyWakey.Models;
 
 public class EventModel
 {
-    public int Id { get; set; } /// ar ID ar EventID?
+    public int Id { get; set; }
     public int RecrutingEventNumber { get; set; }
     public String Name { get; set; }
     public String Location { get; set; }
