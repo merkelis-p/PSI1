@@ -11,4 +11,15 @@
   <ItemGroup>
     <Content Remove="Views\Home\EmptyHtmlFile.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\Course\" />
+    <None Remove="Views\Course\Partial\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Course\" />
+    <Folder Include="Views\Course\Partial\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="jQuery" Version="3.7.1" />
+  </ItemGroup>
 </Project>
