@@ -1,4 +1,37 @@
 ﻿<Properties StartupConfiguration="{7B85F262-8AAF-4EE9-B868-F14EED503657}|https">
   <MonoDevelop.Ide.ItemProperties.WakeyWakey FirstBuild="True" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/Controllers/HomeController.cs">
+    <Files>
+      <File FileName="WakeyWakey/Models/AssignmentModel.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/AssignmentStatus.cs" Line="7" Column="12" />
+      <File FileName="WakeyWakey/Models/DateRange.cs" />
+      <File FileName="WakeyWakey/Program.cs" />
+      <File FileName="WakeyWakey/Views/Home/Index.cshtml" />
+      <File FileName="WakeyWakey/Views/Home/Privacy.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/_ViewImports.cshtml" />
+      <File FileName="WakeyWakey/Views/_ViewStart.cshtml" />
+      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml" />
+      <File FileName="WakeyWakey/Controllers/HomeController.cs" Line="46" Column="50" />
+      <File FileName="WakeyWakey/Models/CourseModel.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/Home/Login.cshtml" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WakeyWakey">
+            <Node name="WakeyWakey">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>
