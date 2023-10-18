@@ -1,0 +1,27 @@
+﻿@model WakeyWakey.Models.SubjectModel
+@{
+    ViewData["Title"] = "Edit subject";
+}
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDateTime"></label>
+        <input asp-for="StartDateTime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDateTime"></label>
+        <input asp-for="EndDateTime" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index">Cancel</a>
+</form>
