@@ -23,11 +23,48 @@
       <File FileName="WakeyWakey/Models/UserLoginRequest.cs" Line="13" Column="1" />
       <File FileName="WakeyWakey/Views/Dashboard/Index.cshtml" Line="1" Column="1" />
       <File FileName="WakeyWakey/Views/Dashboard/Settings.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Controllers/DashboardController.cs" Line="16" Column="25" />
+      <File FileName="WakeyWakey/Controllers/HomeController.cs" Line="19" Column="51" />
+      <File FileName="WakeyWakey/Models/AssignmentStatus.cs" />
+      <File FileName="WakeyWakey/Models/AssignmentModel.cs" />
+      <File FileName="WakeyWakey/Models/TimeRecorderModel.cs" />
+      <File FileName="WakeyWakey/Models/EventModel.cs" />
+      <File FileName="WakeyWakey/Models/User.cs" Line="11" Column="1" />
+      <File FileName="WakeyWakey/Models/UserModel.cs" />
+      <File FileName="WakeyWakey/Program.cs" Line="43" Column="1" />
+      <File FileName="WakeyWakey/Views/Home/Register.cshtml" />
+      <File FileName="WakeyWakey/Views/Home/Index.cshtml" />
+      <File FileName="WakeyWakey/Views/Home/Login.cshtml" />
+      <File FileName="WakeyWakey/Views/_ViewStart.cshtml" />
+      <File FileName="WakeyWakey/Views/_ViewImports.cshtml" />
+      <File FileName="WakeyWakey/Views/Shared/Error.cshtml" />
+      <File FileName="WakeyWakey/Views/Shared/_ValidationScriptsPartial.cshtml" />
+      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml.css" />
+      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml" />
+      <File FileName="WakeyWakey/Services/ApiService.cs" Line="21" Column="63" />
+      <File FileName="WakeyWakey/Models/UserLoginRequest.cs" />
+      <File FileName="WakeyWakey/Views/Dashboard/Index.cshtml" />
+      <File FileName="WakeyWakey/Services/DateTimeExtensions.cs" />
+      <File FileName="WakeyWakey/Services/IApiService.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Controllers/SubjectController.cs" Line="12" Column="6" />
+      <File FileName="WakeyWakey/Controllers/CourseController.cs" Line="22" Column="38" />
+      <File FileName="WakeyWakey/Models/LoginValidationResult.cs" Line="12" Column="1" />
+      <File FileName="WakeyWakey/Models/Course.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/Event.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WakeyWakey" selected="True" />
+          <Node name="WakeyWakey">
+            <Node name="WakeyWakey">
+              <Node name="Controllers" expanded="True">
+                <Node name="HomeController.cs" selected="True" />
+              </Node>
+              <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
@@ -36,7 +73,9 @@
   <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
 </Properties>

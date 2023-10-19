@@ -26,6 +26,12 @@ namespace WakeyWakey.Controllers
         }
 
 
+        
+        public IActionResult Settings()
+        {
+            return View();
+        }
+        
 
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile icsFile)
@@ -45,12 +51,18 @@ namespace WakeyWakey.Controllers
                 //{
                 //    return BadRequest("User ID not available.");
                 //}
+                // Ensure the user ID is available.
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return BadRequest("User ID not available.");
+                }
 
                 foreach (var evt in calendar.Events)
                 {
                     var eventModel = new Event
                     {
                         UserId = 1,//int.Parse(userId), // Convert the user ID to integer (or the appropriate type).
+                        UserId = int.Parse(userId), // Convert the user ID to integer (or the appropriate type).
                         Name = evt.Summary,
                         StartDate = evt.Start.Value,
                         EndDate = evt.End.Value,

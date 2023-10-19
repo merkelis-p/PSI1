@@ -138,8 +138,7 @@ namespace WakeyWakey.Controllers
             {
                 Username = username,
                 Email = email,
-                Salt = Convert.ToBase64String(hmac.Key),
-                Password = Convert.ToBase64String(hmac.ComputeHash(Encoding.UTF8.GetBytes(password)))
+                Password = password
             };
 
             await _userService.AddAsync(newUser);
