@@ -1,4 +1,6 @@
 Id,CourseId,Name,Description,StartDateTime,EndDateTime
 1,1,Maths,Mathematics course,10/16/2023 9:00:00 AM,11/30/2023 2:30:00 PM
-2,2,Science,Science course,10/17/2023 10:00:00 AM,11/30/2023 3:30:00 PM
-3,3,komparch,valaitis,10/13/2023 10:44:00 PM,10/10/2023 10:44:00 PM	
+2,2,Science2342354565,Science course,10/17/2023 10:00:00 AM,11/30/2023 3:30:00 PM
+3,3,komparch,valaitis,10/13/2023 10:44:00 PM,10/10/2023 10:44:00 PM
+4,4,Top G Denisas ,yra dievas,,
+5,5,htfhg,,,
