@@ -1,6 +1,7 @@
 # .NET MAUI artifacts
 bin/
 obj/
+.vs/
 # Uncomment if you wish to ignore the generated platforms folders
 # platforms/
 
