@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
-
 using WakeyWakey.Services;
 using System.Linq;
 using System.Security.Cryptography;
@@ -18,19 +17,20 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
 
 namespace WakeyWakey.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ApiService<User> _userService;
+        ApiService<Event> _apiService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, ApiService<User> userService)
+        public HomeController(ILogger<HomeController> logger, ApiService<User> userService, ApiService<Event> apiService)
         {
             _logger = logger;
             _userService = userService;
+            _apiService = apiService;
         }
 
         public IActionResult Index()
@@ -56,25 +56,61 @@ namespace WakeyWakey.Controllers
 
 
 
-        private bool IsPasswordValid(User user, string plaintextPassword)
-        {
-            using var hmac = new HMACSHA512(Convert.FromBase64String(user.Salt));
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plaintextPassword));
-            return computedHash.SequenceEqual(Convert.FromBase64String(user.Password));
-        }
+        //private bool IsPasswordValid(User user, string plaintextPassword)
+        //{
+        //    using var hmac = new HMACSHA512(Convert.FromBase64String(user.Salt));
+        //    var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(plaintextPassword));
+        //    return computedHash.SequenceEqual(Convert.FromBase64String(user.Password));
+        //}
         //public IActionResult Settings()
         //{
         //    return View();
         //}
-        [HttpPost]
+        //[HttpPost]
+        //public async Task<IActionResult> Login(string username, string password)
+        //{
+        //    //var isValid = await _userService.ValidateLogin(username, password);
+
+
+        //    //if (!isValid)
+        //    //{
+        //    //    _logger.LogWarning($"Failed login attempt for user: {username} due to incorrect password.");
+        //    //    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        //    //    return View();
+        //    //}
+
+        //    //// Successful login
+        //    //var claims = new List<Claim>
+        //    //{
+        //    //    new Claim(ClaimTypes.Name, user.Username),
+        //    //    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+        //    //};
+        //    //var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //    //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+        //    //return RedirectToAction("Index", "Dashboard");
+        //    return View();
+
+
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password)
         {
-            var isValid = await _userService.ValidateLogin(username, password);
+            // Fetch the login validation result from the server
+            var loginResult = await _userService.ValidateLogin(username, password);
 
-            if (!isValid)
+            if (!loginResult.IsValid || !loginResult.UserId.HasValue)
             {
-                _logger.LogWarning($"Failed login attempt for user: {username} due to incorrect password.");
+                if (!loginResult.UserId.HasValue)
+                {
+                    _logger.LogWarning($"Failed login attempt for non-existent user: {username}");
+                }
+                else
+                {
+                    _logger.LogWarning($"Failed login attempt for user: {username} due to incorrect password.");
+                }
+
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return View();
             }
@@ -82,17 +118,15 @@ namespace WakeyWakey.Controllers
             // Successful login
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.NameIdentifier, loginResult.UserId.Value.ToString())
             };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
             return RedirectToAction("Index", "Dashboard");
-
-
-
         }
+
 
 
         [HttpPost]
@@ -123,44 +157,19 @@ namespace WakeyWakey.Controllers
         }
 
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
-    [HttpPost]
-    public IActionResult Login(string username, string password)
-    {
-        // Handle login logic here
-        return RedirectToAction("Index", "Home");
-    }
-
-    [HttpPost]
-    public IActionResult Register(string username, string password, string email)
-    {
-        // Handle registration logic here
-        return RedirectToAction("Index", "Home");
-    }
-
-    
-    /*private List<Course> courses = new List<Course>
-    {
-        new Course { Id = 1, Name = "Course 1" },
-        new Course { Id = 2, Name = "Course 2" }
-    };
-
-    public IActionResult CreateCourse(string courseName)
-    {
-        var newCourse = new Course
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
         {
-            Id = courses.Count + 1,
-            Name = courseName
-        };
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
 
-        courses.Add(newCourse);
 
-        return RedirectToAction("Course");
-    }*/
+        public IActionResult Settings()
+        {
+            return View();
+        }
+
+
+    }
 
 }

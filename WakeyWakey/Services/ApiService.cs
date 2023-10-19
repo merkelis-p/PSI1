@@ -73,15 +73,17 @@ public class ApiService<T>:IApiService<T>
         return response.IsSuccessStatusCode;
     }
 
-    public async Task<bool> ValidateLogin(string username, string password)
+
+    public async Task<LoginValidationResult> ValidateLogin(string username, string password)
     {
         var loginRequest = new UserLoginRequest { Username = username, Password = password };
         var response = await _httpClient.PostAsJsonAsync("api/Users/Login", loginRequest);
         if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
         {
-            return false;
+            return new LoginValidationResult { IsValid = false };
         }
-        return await response.Content.ReadAsAsync<bool>();
+        return await response.Content.ReadAsAsync<LoginValidationResult>();
     }
+
 
 }

@@ -29,9 +29,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Dashboard">Dashboard</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Settings">Settings</a>
-                            </li>
+
 
                             <li class="nav-item">
                                 <form asp-area="" asp-controller="Home" asp-action="Logout" method="post">
@@ -41,6 +39,11 @@
                         }
                         else
                         {
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Settings">Settings</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
