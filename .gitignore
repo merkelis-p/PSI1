@@ -46,10 +46,7 @@ ScaffoldingReadMe.txt
 # macOS thumbnail caches
 ._*
 
-# Package folders (NuGet, Npm, etc.)
-**/packages/*
-!.gitkeep
-node_modules/
+
 
 # Build results
 [Dd]ebug/
