@@ -21,7 +21,7 @@ public class ApiService<T>:IApiService<T>
             BaseAddress = new Uri(configuration["ApiBaseUrl"])
         };
 
-        _endpoint = $"api/{typeof(T).Name}s";
+        _endpoint = $"api/{typeof(T).Name}";
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()

@@ -1,28 +1,6 @@
 ﻿<Properties StartupConfiguration="{7B85F262-8AAF-4EE9-B868-F14EED503657}|https">
   <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/Controllers/HomeController.cs">
     <Files>
-      <File FileName="WakeyWakey/Controllers/DashboardController.cs" Line="28" Column="40" />
-      <File FileName="WakeyWakey/Controllers/HomeController.cs" Line="69" Column="18" />
-      <File FileName="WakeyWakey/Models/AssignmentStatus.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Models/AssignmentModel.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Models/TimeRecorderModel.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Models/EventModel.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Models/User.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Models/UserModel.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Program.cs" Line="28" Column="1" />
-      <File FileName="WakeyWakey/Views/Home/Register.cshtml" Line="25" Column="1" />
-      <File FileName="WakeyWakey/Views/Home/Index.cshtml" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Views/Home/Login.cshtml" Line="16" Column="1" />
-      <File FileName="WakeyWakey/Views/_ViewStart.cshtml" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Views/_ViewImports.cshtml" Line="5" Column="1" />
-      <File FileName="WakeyWakey/Views/Shared/Error.cshtml" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Views/Shared/_ValidationScriptsPartial.cshtml" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml.css" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml" Line="22" Column="44" />
-      <File FileName="WakeyWakey/Services/ApiService.cs" Line="86" Column="1" />
-      <File FileName="WakeyWakey/Models/UserLoginRequest.cs" Line="13" Column="1" />
-      <File FileName="WakeyWakey/Views/Dashboard/Index.cshtml" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Views/Dashboard/Settings.cshtml" Line="1" Column="1" />
       <File FileName="WakeyWakey/Controllers/DashboardController.cs" Line="16" Column="25" />
       <File FileName="WakeyWakey/Controllers/HomeController.cs" Line="19" Column="51" />
       <File FileName="WakeyWakey/Models/AssignmentStatus.cs" />
@@ -55,7 +33,6 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="WakeyWakey" selected="True" />
           <Node name="WakeyWakey">
             <Node name="WakeyWakey">
               <Node name="Controllers" expanded="True">
@@ -69,8 +46,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
