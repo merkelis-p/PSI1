@@ -1,0 +1,38 @@
+@model WakeyWakey.Models.Course
+
+<h2>Edit Course: @Model.Name</h2>
+<head>
+    <style>
+          
+          .btn {
+              padding: 20px 30px;
+              border-radius: 15px;
+              cursor: pointer;
+              border: none;
+              transition: 0.2s ease;
+              margin: 20px 0 0 0;
+        
+          }
+          
+          .btn.btn-primay {
+              background-color: #0099cc;
+              color: white;
+          }
+          
+          .btn.btn-primay:hover {
+              background-color: #cc0000;
+              color: white;
+          }
+          
+  
+    </style>
+
+</head>
+
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="UserId" />
+    <partial name="Partial/_CourseFormPartial" />
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

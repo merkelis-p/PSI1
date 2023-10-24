@@ -25,4 +25,7 @@
     <Folder Include="Services\" />
     <Folder Include="Views\Dashboard\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig" />
+  </ItemGroup>
 </Project>
