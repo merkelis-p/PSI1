@@ -70,8 +70,7 @@ namespace WakeyWakey.Controllers
                 return BadRequest("Invalid file.");
             }
         }
-
-
+        
 
     }
 }

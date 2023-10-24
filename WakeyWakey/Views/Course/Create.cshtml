@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Create course";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model WakeyWakey.Models.Course
+
+<head>
+    <style>
+          
+          .btn {
+              padding: 20px 30px;
+              border-radius: 15px;
+              cursor: pointer;
+              border: none;
+              transition: 0.2s ease;
+              margin: 20px 0 0 0;
+        
+          }
+          
+          .btn.btn-primay {
+              background-color: #0099cc;
+              color: white;
+          }
+          
+          .btn.btn-primay:hover {
+              background-color: #cc0000;
+              color: white;
+          }
+          
+  
+    </style>
+
+</head>
+
+
+<h2>Create Course</h2>
+
+<form asp-action="Create" method="post">
+    <partial name="Partial/_CourseFormPartial" />
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

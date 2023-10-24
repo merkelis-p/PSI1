@@ -1,0 +1,51 @@
+@{
+    ViewData["Title"] = "Delete course";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model WakeyWakey.Models.Course
+<head>
+    <style>
+          .btn {
+              padding: 20px 30px;
+              border-radius: 15px;
+              cursor: pointer;
+              border: none;
+              transition: 0.2s ease;
+              margin: 20px 0 0 0;
+        
+          }
+          
+          .btn.btn-default {
+              background-color: #0099cc;
+              color: white;
+          }
+          
+          .btn.btn-default:hover {
+              background-color: #1370bb;
+              color: white;
+          }
+          
+          .btn.btn-danger {
+              background-color: #cc0000;
+              color: white;
+          }
+          
+           .btn.btn-danger:hover {
+                background-color: #6c0909;
+                color: white;
+           }
+ 
+    </style>
+
+</head>
+
+<h2>Delete Course</h2>
+
+<p>Are you sure you want to delete this course?</p>
+<h4>@Model.Name</h4>
+
+<form asp-controller="Course" asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-default">Cancel</a>
+</form>
