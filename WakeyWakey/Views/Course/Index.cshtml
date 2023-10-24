@@ -1,0 +1,234 @@
+﻿@{
+    ViewData["Title"] = "My courses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<WakeyWakey.Models.Course>
+<head>
+    <style>   
+
+
+
+.hero {
+    display: flex;
+}
+
+    .hero > div {
+        flex: 1;
+        text-align: right;
+    }
+
+h1 {
+    text-align: Left;
+    margin-bottom: 40px;
+}
+
+.course {
+    background-color: #fff;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: 0.5 s ease;
+    box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1);
+    -moz-box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1);
+}
+
+    .course:hover {
+        box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.26);
+        -webkit-box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.26);
+        -moz-box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.26);
+    }
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #e4e4e4;
+    padding: 20px;
+}
+
+    .course-header > div {
+        flex: 1;
+    }
+
+    .course-header .course-right-header {
+        text-align: right;
+    }
+
+
+.course-footer {
+    background-color: #e4e4e4;
+    padding: 10px 0;
+    border-radius: 0 0 20px 20px;
+}
+
+.loading-bar-container {
+    display: flex;
+    margin: 20px;
+}
+
+.loading-bar {
+    flex-grow: 1;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.loading-bar-label-left,
+.loading-bar-label-right {
+    font-family: Arial, sans-serif;
+}
+
+.loading-bar-percentage {
+    font-weight: bold;
+}
+
+.loading-bar-fill {
+    background-color: #0099cc;
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 1s;
+}
+
+.loading-bar-label {
+    margin-top: 10px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.loading-bar-percentage {
+    font-weight: bold;
+}
+
+.btn {
+    padding: 20px 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s ease;
+}
+
+
+    .btn.edit, .btn.create {
+        background-color: #0099cc;
+        color: white;
+        margin-right: 10px;
+    }
+
+        .btn.edit:hover, .btn.create:hover {
+            background-color: #1370bb;
+            color: white;
+            margin-right: 10px;
+        }
+
+    .btn.create {
+        text-align: right;
+    }
+
+    .btn.delete {
+        background-color: #cc0000;
+        color: white;
+    }
+
+        .btn.delete:hover {
+            background-color: #6c0909;
+            color: white;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <div>
+            <h1>@ViewData["Title"]</h1>
+        </div>
+        <div>
+            <div>
+                <a href="@Url.Action("Create", "Course")" class="btn create">Create Course</a>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+    @foreach (var course in Model)
+    {
+        <div class="course">
+            <div class="course-header">
+                <div>
+                    <h2>@course.Name</h2>
+                    <p>@course.Description</p>
+                </div>
+                <div class="course-right-header">
+                    <p>@course.StartDate.Year - @course.EndDate.Year</p>
+                    <div>
+                        <a href="@Url.Action("Edit", "Course", new { id = course.Id })" class="btn edit">Edit</a>
+                        <a href="@Url.Action("Delete", "Course", new { id = course.Id })" class="btn delete">Delete</a>
+                    </div>
+                </div>
+            </div>
+            <div class="course-footer">
+                <!-- Assuming Task, Time, and Score loading bars represent data related to a course. 
+                     The exact implementation will depend on the data available in your Course model. 
+                     For now, using static values, but you can replace with dynamic data from the course. -->
+                <div class="loading-bar-container">
+                    <div class="loading-bar-label-left">Task</div>
+                    <div class="loading-bar">
+                        <div class="loading-bar-fill" data-percentage="60%"></div>
+                    </div>
+                    <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
+                </div>
+
+                <div class="loading-bar-container">
+                    <div class="loading-bar-label-left">Time</div>
+                    <div class="loading-bar">
+                        <div class="loading-bar-fill" data-percentage="80%"></div>
+                    </div>
+                    <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
+                </div>
+
+                <div class="loading-bar-container">
+                    <div class="loading-bar-label-left">Score</div>
+                    <div class="loading-bar">
+                        <div class="loading-bar-fill" data-percentage="40%"></div>
+                    </div>
+                    <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loadingBarFills = document.querySelectorAll(".loading-bar-fill");
+
+        loadingBarFills.forEach((loadingBarFill) => {
+            const loadingBarPercentage = loadingBarFill.parentNode.nextElementSibling.querySelector(
+                ".loading-bar-percentage"
+            );
+
+            const finalPercentage = loadingBarFill.getAttribute("data-percentage");
+
+            setTimeout(() => {
+                loadingBarFill.style.width = finalPercentage;
+                loadingBarPercentage.innerText = finalPercentage;
+            }, 500);
+        });
+    });
+    </script>
+
+
+</body>
+
+
+
+
+

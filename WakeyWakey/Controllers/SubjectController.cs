@@ -2,6 +2,8 @@
 using WakeyWakey.Models;
 using WakeyWakey.Services;
 
+namespace WakeyWakey.Controllers;
+
 public class SubjectController : Controller
 {
     private readonly SubjectStreamReader _subjectStreamReader;

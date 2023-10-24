@@ -1,10 +1,33 @@
-﻿using WakeyWakey.Services;
+using WakeyWakey.Models;
+using WakeyWakey.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add Session services
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Optional: Set a timeout for the session. Adjust as needed.
+    options.Cookie.HttpOnly = true; // Makes the session cookie inaccessible to JavaScript
+});
+
+builder.Services.AddScoped<ApiService<Event>>();
+builder.Services.AddScoped<ApiService<User>>();
+builder.Services.AddScoped<ApiService<Course>>();
 builder.Services.AddScoped<SubjectStreamReader>();
+
+
+// Add Authentication services
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Home/Login";
+        options.AccessDeniedPath = "/Home/AccessDenied";
+    });
 
 var app = builder.Build();
 
@@ -26,6 +49,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Use Session middleware
+app.UseSession();
+
+// Use Authentication and Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -33,4 +61,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
