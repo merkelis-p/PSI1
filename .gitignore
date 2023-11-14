@@ -47,6 +47,13 @@ ScaffoldingReadMe.txt
 # macOS thumbnail caches
 ._*
 
+# Ignore user preferences
+UserPrefs.xml
+
+# Ignore Debug files since they are not needed
+WakeyWakey-Debug.json
+
+
 
 
 # Build results
