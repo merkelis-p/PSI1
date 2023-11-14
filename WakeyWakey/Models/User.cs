@@ -8,6 +8,5 @@ public class User
     public required String Username { get; set; }
     public required String Password { get; set; }
     public String? Email { get; set; }
-    public String Salt { get; set; }
 
 }

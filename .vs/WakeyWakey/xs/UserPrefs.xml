@@ -1,24 +1,32 @@
 ﻿<Properties StartupConfiguration="{7B85F262-8AAF-4EE9-B868-F14EED503657}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/Views/Home/Index.cshtml">
-    <Files>
-      <File FileName="WakeyWakey/Views/Home/Index.cshtml" Line="10" Column="1" />
-      <File FileName="WakeyWakey/Services/ApiService.cs" />
-      <File FileName="WakeyWakey/Controllers/HomeController.cs" />
-      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml" />
-      <File FileName="WakeyWakey/Models/SubjectModel.cs" />
-      <File FileName="WakeyWakey/Models/UserModel.cs" />
-      <File FileName="WakeyWakey/Models/TimeRecorderModel.cs" />
-      <File FileName="WakeyWakey/Models/LoginValidationResult.cs" />
-      <File FileName="WakeyWakey/Models/ReminderModel.cs" />
-      <File FileName="WakeyWakey/Views/Shared/_ValidationScriptsPartial.cshtml" />
-    </Files>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="WakeyWakey">
+          <Node name="WakeyWakey" expanded="True">
             <Node name="WakeyWakey">
+              <Node name="Controllers" expanded="True">
+                <Node name="DashboardController.cs" selected="True" />
+              </Node>
+              <Node name="Extensions" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Course" expanded="True">
+                  <Node name="Partial" expanded="True" />
+                </Node>
+                <Node name="Dashboard" expanded="True" />
                 <Node name="Home" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_Layout.cshtml" expanded="True" />
+                </Node>
               </Node>
             </Node>
           </Node>
@@ -26,11 +34,4 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>
