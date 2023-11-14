@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<WakeyWakey.Models.Event>
+@{
     ViewBag.title = "Calendar";
 }
 
@@ -23,13 +24,21 @@
                 },
                 defaultDate : '@DateTime.Now',
                 defaultView : 'month',
-                editable : true
-                //events: [
-                //    {
-                        
-                //    }
-                //]
+                editable : true,
+                events: [
+                    @foreach (var calendarEvent in Model)
+                    {
+                    <text>{</text>
+                    <text>title: '@calendarEvent.Name',</text>
+                    <text>start: '@calendarEvent.StartDate'</text>
+                    <text>}</text>
+                    if (calendarEvent != Model.Last())
+                    {
+                    <text>,</text>
+                    }
+                    }
+                ]
             })
-        });
+        })
     </script>
 }

@@ -13,23 +13,25 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class CalendarController : Controller
     {
-        private readonly ApiService<Event> _eventService;
+        private readonly IApiService<Event> _eventsService;
         private readonly ILogger<CalendarController> _logger;
 
-        public CalendarController(ApiService<Event> eventService, ILogger<CalendarController> logger)
+        public CalendarController(IApiService<Event> eventService, ILogger<CalendarController> logger)
         {
-            _eventService = eventService;
+            _eventsService = eventService;
             _logger = logger;
         }
 
         public IActionResult Create()
         {
-            return View(new Event());
+            return View();
         }
 
-         public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var events = await _eventsService.GetAllAsync();
+            var userEvents = events.ToList();
+            return View(userEvents);
         }
 
         [HttpPost]
@@ -44,7 +46,7 @@ namespace WakeyWakey.Controllers
             {
                 var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 calendarEvent.UserId = userId;
-                await _eventService.AddAsync(calendarEvent);
+                await _eventsService.AddAsync(calendarEvent);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -58,7 +60,7 @@ namespace WakeyWakey.Controllers
         public async Task<JsonResult> GetEvents()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var events = await _eventService.GetAllAsync();
+            var events = await _eventsService.GetAllAsync();
             var userEvents = events.Where(e => e.UserId == userId).Select(e => new
             {
                 id = e.Id,
@@ -78,7 +80,7 @@ namespace WakeyWakey.Controllers
         {
             try
             {
-                await _eventService.DeleteAsync(id);
+                await _eventsService.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -95,7 +97,7 @@ namespace WakeyWakey.Controllers
             _logger.LogInformation("Create method hit.2");
             
 
-            var calendarEvent = await _eventService.GetByIdAsync(id);
+            var calendarEvent = await _eventsService.GetByIdAsync(id);
             return View(calendarEvent);
         }
 

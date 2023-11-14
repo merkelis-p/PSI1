@@ -1,43 +1,79 @@
 ﻿<Properties StartupConfiguration="{7B85F262-8AAF-4EE9-B868-F14EED503657}|https">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1114" column="1" />
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1115" column="1" />
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1116" column="1" />
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1117" column="1" />
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1118" column="1" />
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1119" column="1" />
-      <Breakpoint file="/Users/darbokompiuteris/Desktop/PSI1/WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" relfile="WakeyWakey/wwwroot/scripts/FullCalendar.2.2.5.min.js" line="1120" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/Controllers/CalendarController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/Services/IEventService.cs">
     <Files>
-      <File FileName="WakeyWakey/Services/ApiService.cs" Line="13" Column="26" />
-      <File FileName="WakeyWakey/Controllers/CourseController.cs" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Controllers/CalendarController.cs" Line="54" Column="36" />
-      <File FileName="WakeyWakey/Views/Home/Calendar.cshtml" Line="1" Column="1" />
-      <File FileName="WakeyWakey/Models/Event.cs" Line="17" Column="1" />
+      <File FileName="WakeyWakey/Models/Course.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Program.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/AssignmentModel.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/Shared/_Layout.cshtml" Line="30" Column="34" />
+      <File FileName="WakeyWakey/Views/_ViewImports.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/_ViewStart.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/Home/Index.cshtml" />
+      <File FileName="WakeyWakey/Views/Home/Login.cshtml" />
+      <File FileName="WakeyWakey/Views/Home/Register.cshtml" />
+      <File FileName="WakeyWakey/Models/SubjectModel.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/AssignmentStatus.cs" />
+      <File FileName="WakeyWakey/Controllers/SubjectController.cs" Line="9" Column="3" />
+      <File FileName="WakeyWakey/Views/Subject/Create.cshtml" />
+      <File FileName="WakeyWakey/Views/Subject/Delete.cshtml" />
+      <File FileName="WakeyWakey/Views/Subject/Edit.cshtml" />
+      <File FileName="WakeyWakey/Views/Subject/Index.cshtml" Line="7" Column="8" />
+      <File FileName="WakeyWakey/Views/Subject/Index.cshtml.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/Subject/Edit.cshtml.cs" />
+      <File FileName="WakeyWakey/wwwroot/css/SubjectFront.css" />
+      <File FileName="WakeyWakey/Services/SubjectStreamReader.cs" Line="19" Column="42" />
+      <File FileName="WakeyWakey/Controllers/HomeController.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Controllers/DashboardController.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Services/Subjects.csv" Line="5" Column="1" />
+      <File FileName="WakeyWakey/Services/IApiService.cs" Line="9" Column="33" />
+      <File FileName="WakeyWakey/Services/DateTimeExtensions.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Services/ApiService.cs" Line="34" Column="6" />
+      <File FileName="WakeyWakey/Models/ErrorViewModel.cs" />
+      <File FileName="WakeyWakey/Views/Dashboard/Index.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/DateRange.cs" />
+      <File FileName="WakeyWakey/Models/EventModel.cs" />
+      <File FileName="WakeyWakey/Models/ReminderModel.cs" Line="11" Column="2" />
+      <File FileName="WakeyWakey/Views/Course/Create.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/wwwroot/css/site.css" />
+      <File FileName="WakeyWakey/Views/Course/Delete.cshtml" />
+      <File FileName="WakeyWakey/Views/Course/Index.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/Event.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Models/User.cs" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Controllers/CourseController.cs" Line="37" Column="53" />
+      <File FileName="WakeyWakey/Views/Home/Calendar.cshtml" Line="29" Column="22" />
+      <File FileName="WakeyWakey/Services/IEventService.cs" Line="11" Column="24" />
+      <File FileName="WakeyWakey/Services/Events.csv" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/Course/Partial/_CourseFormPartial.cshtml" Line="1" Column="1" />
+      <File FileName="WakeyWakey/Views/Dashboard/Settings.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="WakeyWakey">
-            <Node name="WakeyWakey">
-              <Node name="Controllers" expanded="True">
-                <Node name="CalendarController.cs" selected="True" />
-              </Node>
+            <Node name="WakeyWakey" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Extensions" expanded="True" />
               <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="Dashboard" expanded="True" />
+                <Node name="Home" expanded="True" />
+                <Node name="Shared" expanded="True" />
                 <Node name="Subject" expanded="True" />
               </Node>
+              <Node name="wwwroot" expanded="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
