@@ -1,0 +1,29 @@
+@model WakeyWakey.Models.Course
+@{
+    var courseStatusItems = Html.GetEnumSelectList<CourseStatus>();
+    var formattedStartDate = Model.StartDate.ToString("yyyy-MM-ddTHH:mm");
+    var formattedEndDate = Model.EndDate.ToString("yyyy-MM-ddTHH:mm");
+}
+
+<div class="form-group">
+    <label>Name</label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label>Description</label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+</div>
+<div class="form-group">
+    <label>Start Date</label>
+    <input type="datetime-local" asp-for="StartDate" class="form-control" value="@formattedStartDate" />
+</div>
+<div class="form-group">
+    <label>End Date</label>
+     <input type="datetime-local" asp-for="EndDate" class="form-control" value="@formattedEndDate" />
+</div>
+<div class="form-group">
+    <label>Status</label>
+    <select asp-for="Status" asp-items="courseStatusItems" class="form-control"></select>
+    
+</div>

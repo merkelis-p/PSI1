@@ -17,6 +17,9 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddScoped<ApiService<Event>>();
 builder.Services.AddScoped<ApiService<User>>();
+builder.Services.AddScoped<ApiService<Course>>();
+builder.Services.AddScoped<SubjectStreamReader>();
+
 
 // Add Authentication services
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
