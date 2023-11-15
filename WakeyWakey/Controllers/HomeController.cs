@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
-
 namespace WakeyWakey.Controllers
 {
     public class HomeController : Controller
@@ -76,8 +75,6 @@ namespace WakeyWakey.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-
-
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password, string email)
         {
@@ -104,14 +101,11 @@ namespace WakeyWakey.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
+        
     }
-
 }

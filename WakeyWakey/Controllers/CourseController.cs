@@ -7,6 +7,7 @@ using WakeyWakey.Services;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 
 namespace WakeyWakey.Controllers
@@ -57,6 +58,7 @@ namespace WakeyWakey.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 await _courseService.AddAsync(course);
                 return RedirectToAction(nameof(Index));
             }

@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "My Tasks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<WakeyWakey.Models.Task>
+
+<head>
+    <!-- Style definitions... -->
+</head>
+
+<body>
+<div class="hero">
+    <div>
+        <h1>@ViewData["Title"]]</h1>
+    </div>
+    <div>
+        <a href="@Url.Action("Create", "Task")" class="btn create">Create Task</a>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <p>No tasks available. Create a new task.</p>
+}
+else
+{
+    foreach (var task in Model.Where(t => t.ParentId == null)) // Display only top-level tasks
+    {
+        @Html.Partial("Partial/_TaskItem", task) // A partial view to display each task
+    }
+}
+</body>
