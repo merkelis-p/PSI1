@@ -7,7 +7,7 @@
 
 <div id="calendar"></div>
 
-<h2>Calendar</h2>
+<!-- <h2>Calendar</h2>-->
 
 @section scripts{
     <script src="~/scripts/jquery.min.js"></script>
@@ -24,7 +24,8 @@
                 },
                 defaultDate : '@DateTime.Now',
                 defaultView : 'month',
-                editable : true,
+                editable: true,
+                locale: 'lt',
                 events: [
                     @foreach (var calendarEvent in Model)
                     {
