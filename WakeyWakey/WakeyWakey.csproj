@@ -22,8 +22,8 @@
     <None Remove="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
     <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\TimeRecorder\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

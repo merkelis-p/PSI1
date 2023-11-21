@@ -16,8 +16,9 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<ApiService<Event>>();
-builder.Services.AddScoped<ApiService<User>>();
+builder.Services.AddScoped<ApiService<User>>(); // cia reikia pakeisti i IApiService
 builder.Services.AddScoped<ApiService<Course>>();
+builder.Services.AddScoped<ApiService<TimeRecorder>>();
 builder.Services.AddScoped<SubjectStreamReader>();
 
 

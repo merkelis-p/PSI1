@@ -1,0 +1,22 @@
+﻿@model TimeRecorder
+
+<h2>Create Time Recorder</h2>
+
+<form asp-action="Create" method="post">
+    <label for="focusHours">Study Time Hours:</label>
+    <input type="number" id="focusHours" name="focusHours" min="0" value="0" required />
+
+    <label for="focusMinutes">Study Time Minutes:</label>
+    <input type="number" id="focusMinutes" name="focusMinutes" min="0" max="59" value="30" required />
+
+    <label for="breakHours">Break Time Hours:</label>
+    <input type="number" id="breakHours" name="breakHours" min="0" value="0" required />
+
+    <label for="breakMinutes">Break Time Minutes:</label>
+    <input type="number" id="breakMinutes" name="breakMinutes" min="0" max="59" value="5" required />
+
+    <label for="breakFrequency">Break Frequency (times):</label>
+    <input type="number" id="breakFrequency" name="breakFrequency" min="1" value="1" required />
+
+    <button type="submit">Save</button>
+</form>
