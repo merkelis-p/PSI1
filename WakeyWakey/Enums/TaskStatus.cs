@@ -1,8 +1,8 @@
-namespace WakeyWakey.Models;
+namespace WakeyWakey.Enums;
 
 public enum TaskStatus
 {
-    Uncompleted,
+    Incompleted,
     Completed,
     Canceled
 }

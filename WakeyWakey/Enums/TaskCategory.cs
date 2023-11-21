@@ -1,4 +1,4 @@
-namespace WakeyWakey.Models;
+namespace WakeyWakey.Enums;
 
 public enum TaskCategory
 {

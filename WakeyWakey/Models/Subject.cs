@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using WakeyWakey.Enums;
 
 namespace WakeyWakey.Models
 {
@@ -29,5 +30,7 @@ namespace WakeyWakey.Models
         public int? ScoreWeight { get; set; }
 
         public int CourseId { get; set; }
+        
+        public List<Task>? Tasks { get; set; }
     }
 }

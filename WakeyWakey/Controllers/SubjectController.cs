@@ -10,10 +10,10 @@ namespace WakeyWakey.Controllers
     [Route("Course/{courseId}/[controller]")]
     public class SubjectController : Controller
     {
-        private readonly ApiService<Subject> _subjectService;
+        private readonly SubjectApiService _subjectService;
         private readonly ILogger<SubjectController> _logger;
 
-        public SubjectController(ApiService<Subject> subjectService, ILogger<SubjectController> logger)
+        public SubjectController(SubjectApiService subjectService, ILogger<SubjectController> logger)
         {
             _subjectService = subjectService;
             _logger = logger;

@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using WakeyWakey.Models;
-
-
-
+﻿using System.Text.Json;
 
 namespace WakeyWakey.Services;
 
-
 public class ApiService<T>:IApiService<T>
 {
-    private readonly HttpClient _httpClient;
+    protected readonly HttpClient _httpClient;
     private readonly string _endpoint;
-
-
     private readonly ILogger<ApiService<T>> _logger;
 
     public ApiService(IConfiguration configuration, ILogger<ApiService<T>> logger)
@@ -31,7 +19,6 @@ public class ApiService<T>:IApiService<T>
         _endpoint = $"api/{typeof(T).Name}";
     }
 
-
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         var response = await _httpClient.GetAsync(_endpoint);
@@ -40,7 +27,7 @@ public class ApiService<T>:IApiService<T>
         var content = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<IEnumerable<T>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
-
+    
     public async Task<T> GetByIdAsync(int id)
     {
         var response = await _httpClient.GetAsync($"{_endpoint}/{id}");
@@ -99,128 +86,5 @@ public class ApiService<T>:IApiService<T>
         var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
         return response.IsSuccessStatusCode;
     }
-
-
-    public async Task<LoginValidationResult> ValidateLogin(string username, string password)
-    {
-        var loginRequest = new UserLoginRequest { Username = username, Password = password };
-        var response = await _httpClient.PostAsJsonAsync("api/User/Login", loginRequest);
-        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            return new LoginValidationResult { IsValid = false };
-        }
-        return await response.Content.ReadAsAsync<LoginValidationResult>();
-    }
     
-    
-    public async Task<IEnumerable<Subject>> GetSubjectsByCourseIdAsync(int courseId)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"api/Subject/GetSubjectsByCourse/{courseId}");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<IEnumerable<Subject>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }
-            else {
-                return Enumerable.Empty<Subject>(); // return an empty list
-            }
-        }
-        catch (Exception ex)
-        {
-            return Enumerable.Empty<Subject>(); // return an empty list
-        }
-    }
-    
-    
-    // Get courses by user id
-    public async Task<IEnumerable<Course>> GetCoursesByUserIdAsync(int userId)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"api/Course/GetCoursesByUserId/{userId}");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<IEnumerable<Course>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }
-            else {
-                return Enumerable.Empty<Course>(); // return an empty list
-            }
-        }
-        catch (Exception ex)
-        {
-            return Enumerable.Empty<Course>(); // return an empty list
-        }
-    }
-    
-    
-    // Get Tasks by user id
-    public async Task<IEnumerable<Models.Task>> GetTasksByUserIdAsync(int userId)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"api/Task/GetByUserId/{userId}");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<IEnumerable<Models.Task>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }
-            else {
-                return Enumerable.Empty<Models.Task>(); // return an empty list
-            }
-        }
-        catch (Exception ex)
-        {
-            return Enumerable.Empty<Models.Task>(); // return an empty list
-        }
-    }
-    
-    // Get Tasks by subject id
-    public async Task<IEnumerable<Models.Task>> GetTasksBySubjectIdAsync(int subjectId)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"api/Task/GetBySubjectId/{subjectId}");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<IEnumerable<Models.Task>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }
-            else {
-                return Enumerable.Empty<Models.Task>(); // return an empty list
-            }
-        }
-        catch (Exception ex)
-        {
-            return Enumerable.Empty<Models.Task>(); // return an empty list
-        }
-    }
-    
-    // Get Tasks by parent id
-    public async Task<IEnumerable<Models.Task>> GetTasksByParentIdAsync(int parentId)
-    {
-        try
-        {
-            var response = await _httpClient.GetAsync($"api/Task/GetChildrenByParentId/{parentId}");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<IEnumerable<Models.Task>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }
-            else {
-                return Enumerable.Empty<Models.Task>(); // return an empty list
-            }
-        }
-        catch (Exception ex)
-        {
-            return Enumerable.Empty<Models.Task>(); // return an empty list
-        }
-    }
-    
-
-
-
-
 }

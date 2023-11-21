@@ -1,8 +1,10 @@
+@using WakeyWakey.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model WakeyWakey.Models.Task
 @{
     var taskCategoryItems = Html.GetEnumSelectList<TaskCategory>();
     var formattedDeadlineDate = Model.DeadlineDate?.ToString("yyyy-MM-ddTHH:mm");
-    var taskStatusItems = Html.GetEnumSelectList<WakeyWakey.Models.TaskStatus>();
+    var taskStatusItems = Html.GetEnumSelectList<WakeyWakey.Enums.TaskStatus>();
 }
 <input type="hidden" asp-for="UserId" />
 
@@ -33,9 +35,20 @@
     <select asp-for="Status" asp-items="taskStatusItems" class="form-control"></select>
 </div>
 <div class="form-group">
-    <label for="SubjectId">Subject</label>
-    <select asp-for="SubjectId" asp-items="ViewBag.Subjects" class="form-control">
-        <option value="">Select Subject (Optional)</option>
+    <label for="SubjectOrTaskId">Select Subject or Task</label>
+    <select asp-for="SubjectOrTaskId" class="form-control">
+        <option value="">Select Subject or Task</option>
+        @foreach (var item in ViewBag.HierarchySelectList as List<SelectListItem>)
+        {
+            if (item.Disabled)
+            {
+                <optgroup label="@item.Text"></optgroup>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
     </select>
 </div>
 <div class="form-group">

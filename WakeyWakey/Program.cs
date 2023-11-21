@@ -16,10 +16,10 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<ApiService<Event>>();
-builder.Services.AddScoped<ApiService<User>>();
-builder.Services.AddScoped <ApiService <WakeyWakey.Models.Task>>();
-builder.Services.AddScoped<ApiService<Course>>();
-builder.Services.AddScoped<ApiService<Subject>>();
+builder.Services.AddScoped<UserApiService>();
+builder.Services.AddScoped <TaskApiService>();
+builder.Services.AddScoped<CourseApiService>();
+builder.Services.AddScoped<SubjectApiService>();
 builder.Services.AddScoped<SubjectStreamReader>();
 
 

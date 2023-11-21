@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using WakeyWakey.Services;
 using WakeyWakey.Models;
 
@@ -10,15 +12,18 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class TaskController : Controller
     {
-        private readonly ApiService<Models.Task> _taskService;
+        private readonly TaskApiService _taskService;
+        private readonly CourseApiService _courseService;
         private readonly ApiService<Subject> _subjectService;
 
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ApiService<Models.Task> taskService,  ILogger<TaskController> logger)
+        public TaskController(TaskApiService taskService, CourseApiService courseService,  ILogger<TaskController> logger)
         {
             _taskService = taskService;
+            _courseService = courseService;
             _logger = logger;
+            
         }
 
         public async Task<IActionResult> Index()
@@ -28,25 +33,55 @@ namespace WakeyWakey.Controllers
             var userTasks = tasks.Where(task => task.UserId == userId).ToList();
             return View(userTasks);
         }
-
-        public IActionResult Create()
+        
+        public async Task<IActionResult> Create()
         {
-            // get all subjects for the user
-            
-            
-            
-            // pass new task to the view
-            var task = new Models.Task() 
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var courses = await _courseService.GetAllHierarchyAsync(userId);
+            // print courses to the logger
+            _logger.LogInformation($"Courses: {JsonConvert.SerializeObject(courses)}");
+
+            var hierarchySelectList = new List<SelectListItem>();
+            foreach (var course in courses)
             {
-                UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)), 
+                // Use optgroup to group subjects under courses
+                hierarchySelectList.Add(new SelectListItem 
+                { 
+                    Text = $"Course: {course.Name}", 
+                    Value = $"Course-{course.Id}", 
+                    Disabled = true // Disable selection of courses
+                });
+                foreach (var subject in course.Subjects)
+                {
+                    hierarchySelectList.Add(new SelectListItem 
+                    { 
+                        Text = $"Subject: {subject.Name}", 
+                        Value = $"Subject-{subject.Id}"
+                    });
+
+                    foreach (var task in subject.Tasks)
+                    {
+                        hierarchySelectList.Add(new SelectListItem 
+                        { 
+                            Text = $"-- Task: {task.Name}", 
+                            Value = $"Task-{task.Id}"
+                        });
+                    }
+                }
+            }
+
+            ViewBag.HierarchySelectList = hierarchySelectList;
+
+            var taskModel = new Models.Task() 
+            {
+                UserId = userId,
                 Status = 0, 
                 Category = 0
             };
 
-            return View(task); // Pass the task to the view
+            return View(taskModel);
         }
-
-
+        
         
         [HttpPost]
         public async Task<IActionResult> Create(Models.Task task)

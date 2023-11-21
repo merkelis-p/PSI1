@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
-
+using WakeyWakey.Enums;
 namespace WakeyWakey.Models
 {
     public partial class Task 
@@ -26,7 +26,12 @@ namespace WakeyWakey.Models
         public DateTime? DeadlineDate { get; set; }
         public int? Score { get; set; }
         public int? ScoreWeight { get; set; }
-        public required TaskStatus Status { get; set; }
+        public required Enums.TaskStatus Status { get; set; } = Enums.TaskStatus.Incompleted;
+        
+        public List<Task>? Tasks { get; set; }
+        
+        public string? SubjectOrTaskId { get; set; }
+
 
 
     }
