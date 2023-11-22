@@ -27,6 +27,11 @@ namespace WakeyWakey.Controllers
             return View();
         }
 
+        public IActionResult Calendar()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
