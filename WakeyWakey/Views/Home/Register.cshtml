@@ -1,4 +1,6 @@
-﻿@{
+﻿
+
+@{
     ViewData["Title"] = "Register";
 }
 
@@ -20,7 +22,7 @@
 
 <div class="text-center">
     <h1 class="display-4">Wakey Wakey - Register</h1>
-    
+
     <form method="post" action="/Home/Register">
         <div class="form-group">
             <label for="username">Username:</label>
@@ -35,9 +37,10 @@
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="email" class="form-control custom-input" id="email" name="email" required>
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
     </form>
-    
+
     <p>Already have an account? <a href="/Home/Login">Login here</a>.</p>
 </div>
