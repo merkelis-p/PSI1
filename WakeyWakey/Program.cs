@@ -43,23 +43,6 @@ void ConfigureServices(IServiceCollection services)
 {
     services.AddScoped<SubjectStreamReader>();
 
-    services.Configure<RequestLocalizationOptions>(options =>
-    {
-        var supportedCultures = new[] { new CultureInfo("lt-LT") };
-        options.DefaultRequestCulture = new RequestCulture("lt-LT");
-        options.SupportedCultures = supportedCultures;
-        options.SupportedUICultures = supportedCultures;
-    });
-
-}
-
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env) //cia idejau, kad butu galima prideti support for lt language
-{ 
-    // ... other configurations
-
-    app.UseRequestLocalization();
-
-    // ... other middleware
 }
 
 
