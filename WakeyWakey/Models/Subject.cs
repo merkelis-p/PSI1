@@ -31,6 +31,6 @@ namespace WakeyWakey.Models
 
         public int CourseId { get; set; }
         
-        public IEnumerable<Task>? Tasks { get; set; }
+        public List<Task>? Tasks { get; set; }
     }
 }

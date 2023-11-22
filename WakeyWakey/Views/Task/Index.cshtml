@@ -2,51 +2,10 @@
     ViewData["Title"] = "My Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<WakeyWakey.Models.Task>
+@model List<WakeyWakey.Models.Task>
 
 <head>
-    <style>
-        .task {
-        margin-left: 20px;
-        border-left: 2px solid #e0e0e0;
-        padding-left: 10px;
-        position: relative;
-        }
-    
-        .task-header {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        }
-    
-        .task-completed-checkbox {
-        margin-right: 10px;
-        }
-    
-        .task-name {
-        font-weight: bold;
-        flex-grow: 1;
-        }
-    
-        .task-toggle {
-        border: none;
-        background: none;
-        cursor: pointer;
-        margin-left: 10px;
-        }
-    
-        .subtasks {
-        margin-top: 10px;
-        display: block;
-        }
-    
-        .task-details {
-        margin-top: 5px;
-        font-size: 0.9em;
-        color: #666;
-        }
-    </style>
-
+    <!-- Style definitions... -->
 </head>
 
 <body>
@@ -59,35 +18,15 @@
     </div>
 </div>
 
-    @if (!Model.Any())
+@if (!Model.Any())
+{
+    <p>No tasks available. Create a new task.</p>
+}
+else
+{
+    foreach (var task in Model.Where(t => t.ParentId == null)) // Display only top-level tasks
     {
-        <p>No tasks available. Create a new task.</p>
+        @Html.Partial("Partial/_TaskItem", task) // A partial view to display each task
     }
-    else
-    {
-        <div class="tasks-container">
-            @foreach (var task in Model.Where(t => t.ParentId == null))
-            {
-                @Html.Partial("_TaskItem", task) // Display each task
-            }
-        </div>
-    }
-<!--<script>
-        document.querySelectorAll('.task-toggle').forEach(button => {
-            button.addEventListener('click', function() {
-                const taskId = this.closest('.task').getAttribute('data-task-id');
-                const subtasks = document.querySelector(`.task[data-task-id="${taskId}"] .subtasks`);
-                if (subtasks) {
-                    subtasks.style.display = subtasks.style.display === 'none' ? 'block' : 'none';
-                    if (this.innerText === '-') {
-                        this.innerText = '+';
-                    } else {
-                        this.innerText = '-';
-                    }
-                }
-            });
-        });
-    </script>-->
-
-
+}
 </body>

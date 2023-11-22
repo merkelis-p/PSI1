@@ -29,8 +29,9 @@ namespace WakeyWakey.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var tasks = await _taskService.GetTasksWithHierarchyByUserIdAsync(userId);
-            return View(tasks);
+            var tasks = await _taskService.GetAllAsync();
+            var userTasks = tasks.Where(task => task.UserId == userId).ToList();
+            return View(userTasks);
         }
         
         public async Task<IActionResult> Create()
