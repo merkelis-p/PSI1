@@ -29,10 +29,21 @@ namespace WakeyWakey.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var events = await _eventsService.GetAllAsync();
-            var userEvents = events.ToList();
-            return View(userEvents);
+            try
+            {
+                var events = await _eventsService.GetAllAsync();
+                var userEvents = events.ToList();
+                return View(userEvents);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching events in Index method");
+                // Handle the error appropriately
+                // For example, you might want to redirect to an error page or return a specific view
+                return RedirectToAction("Error"); // Redirect to an error handling view
+            }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(Event calendarEvent) // Changed 'event' to 'calendarEvent'
@@ -75,18 +86,33 @@ namespace WakeyWakey.Controllers
             return Json(userEvents);
         }
 
+        //[HttpPost]                                        OLD DELETE IMPLEMENTATION
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    try
+        //    {
+        //        await _eventsService.DeleteAsync(id);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error deleting event");
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //} 
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _eventsService.DeleteAsync(id);
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error deleting event");
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = false });
             }
         }
 

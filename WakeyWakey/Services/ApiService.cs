@@ -30,14 +30,44 @@ public class ApiService<T>:IApiService<T>
     }
 
 
+    //public async Task<IEnumerable<T>> GetAllAsync()
+    //{
+    //    var response = await _httpClient.GetAsync(_endpoint);
+    //    response.EnsureSuccessStatusCode();
+
+    //    var content = await response.Content.ReadAsStringAsync();
+    //    return JsonSerializer.Deserialize<IEnumerable<T>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    //}
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
-        var response = await _httpClient.GetAsync(_endpoint);
-        response.EnsureSuccessStatusCode();
+        try
+        {
+            var response = await _httpClient.GetAsync(_endpoint);
 
-        var content = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<IEnumerable<T>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            // You might want to check for specific HTTP status codes here
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError($"API call to {_endpoint} failed with status code {response.StatusCode}");
+                // Handle specific status codes or throw a custom exception
+                throw new HttpRequestException($"Request to API failed: {response.StatusCode}");
+            }
+
+            var content = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<IEnumerable<T>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+        catch (HttpRequestException ex)
+        {
+            _logger.LogError(ex, "HttpRequestException occurred while calling API");
+            throw; // Re-throwing the exception to be handled by the caller
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An unexpected error occurred in GetAllAsync");
+            throw; // Re-throwing the exception to be handled by the caller
+        }
     }
+
 
     public async Task<T> GetByIdAsync(int id)
     {
