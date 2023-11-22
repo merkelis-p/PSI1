@@ -28,7 +28,7 @@ namespace WakeyWakey.Models
         public int? ScoreWeight { get; set; }
         public required Enums.TaskStatus Status { get; set; } = Enums.TaskStatus.Incompleted;
         
-        public List<Task>? Tasks { get; set; }
+        public IEnumerable<Task>? Tasks { get; set; }
         
         public string? SubjectOrTaskId { get; set; }
 

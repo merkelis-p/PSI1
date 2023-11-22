@@ -77,5 +77,28 @@ public class TaskApiService : ApiService<Models.Task>
         }
     }
     
+    // Get tasks with hierarchy by user id
+    public async Task<IEnumerable<Models.Task>> GetTasksWithHierarchyByUserIdAsync(int userId)
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync($"api/Task/GetTasksWithHierarchyByUserId/{userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<IEnumerable<Models.Task>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }
+            else {
+                return Enumerable.Empty<Models.Task>(); // return an empty list
+            }
+        }
+        catch (Exception ex)
+        {
+            return Enumerable.Empty<Models.Task>(); // return an empty list
+        }
+    }
+    
+    
+    
     
 }

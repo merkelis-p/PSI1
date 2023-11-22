@@ -41,7 +41,7 @@ namespace WakeyWakey.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         
-        public List<Subject>? Subjects { get; set; }
+        public IEnumerable<Subject>? Subjects { get; set; }
 
     }
 }
