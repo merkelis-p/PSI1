@@ -14,6 +14,10 @@ public class SubjectStreamReader : IEnumerable<SubjectModel>
     private List<SubjectModel> _subjects;
     private readonly string _dataFilePath = "Services/Subjects.csv";
 
+    //public delegate void SubjectActionDelegate(SubjectModel subject);
+
+    public SubjectActionDelegate OnSubjectAction;
+
     public SubjectStreamReader()
     {
         _subjects = LoadSubjectsFromCsv();
@@ -25,7 +29,7 @@ public class SubjectStreamReader : IEnumerable<SubjectModel>
     }
 
     public SubjectModel GetSubject(int id) =>
-        _subjects.FirstOrDefault(s => s.Id == id);
+            _subjects.FirstOrDefault(s => s.Id == id);
 
     public void AddSubject(SubjectModel subject)
     {
@@ -33,6 +37,9 @@ public class SubjectStreamReader : IEnumerable<SubjectModel>
         subject.CourseId = _subjects.Max(i => i.CourseId) + 1;
         _subjects.Add(subject);
         SaveSubjectsToCsv();
+
+        // Trigger the delegate after adding a subject
+        OnSubjectAction?.Invoke(subject);
     }
 
     public void UpdateSubject(SubjectModel updatedSubject)
@@ -45,6 +52,9 @@ public class SubjectStreamReader : IEnumerable<SubjectModel>
             existingSubject.StartDateTime = updatedSubject.StartDateTime;
             existingSubject.EndDateTime = updatedSubject.EndDateTime;
             SaveSubjectsToCsv();
+
+            // Trigger the delegate after updating a subject
+            OnSubjectAction?.Invoke(existingSubject); 
         }
     }
 
@@ -55,6 +65,9 @@ public class SubjectStreamReader : IEnumerable<SubjectModel>
         {
             _subjects.Remove(subjectToDelete);
             SaveSubjectsToCsv();
+
+            // Trigger the delegate after deleting a subject
+            OnSubjectAction?.Invoke(subjectToDelete);
         }
     }
 
