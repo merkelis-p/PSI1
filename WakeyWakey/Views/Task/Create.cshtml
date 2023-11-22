@@ -1,0 +1,13 @@
+@model WakeyWakey.Models.Task
+
+@{
+    ViewData["Title"] = "Create Task";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Task</h2>
+
+<form asp-controller="Task" asp-action="Create" method="post">
+    <partial name="Partial/_TaskFormPartial" />
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

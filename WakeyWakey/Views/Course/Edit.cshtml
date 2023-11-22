@@ -30,7 +30,7 @@
 </head>
 
 
-<form asp-action="Edit" method="post">
+<form asp-controller="Course" asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="UserId" />
     <partial name="Partial/_CourseFormPartial" />

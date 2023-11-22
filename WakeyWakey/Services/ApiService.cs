@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using WakeyWakey.Models;
-
+﻿using System.Text.Json;
 
 namespace WakeyWakey.Services;
 
-
 public class ApiService<T>:IApiService<T>
 {
-    private readonly HttpClient _httpClient;
+    protected readonly HttpClient _httpClient;
     private readonly string _endpoint;
-
-
     private readonly ILogger<ApiService<T>> _logger;
 
     public ApiService(IConfiguration configuration, ILogger<ApiService<T>> logger)
@@ -29,7 +19,6 @@ public class ApiService<T>:IApiService<T>
         _endpoint = $"api/{typeof(T).Name}";
     }
 
-
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         var response = await _httpClient.GetAsync(_endpoint);
@@ -38,7 +27,7 @@ public class ApiService<T>:IApiService<T>
         var content = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<IEnumerable<T>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
-
+    
     public async Task<T> GetByIdAsync(int id)
     {
         var response = await _httpClient.GetAsync($"{_endpoint}/{id}");
@@ -97,18 +86,5 @@ public class ApiService<T>:IApiService<T>
         var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
         return response.IsSuccessStatusCode;
     }
-
-
-    public async Task<LoginValidationResult> ValidateLogin(string username, string password)
-    {
-        var loginRequest = new UserLoginRequest { Username = username, Password = password };
-        var response = await _httpClient.PostAsJsonAsync("api/User/Login", loginRequest);
-        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-        {
-            return new LoginValidationResult { IsValid = false };
-        }
-        return await response.Content.ReadAsAsync<LoginValidationResult>();
-    }
-
-
+    
 }
