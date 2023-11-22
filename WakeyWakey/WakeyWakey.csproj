@@ -23,7 +23,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Dashboard\" />
-    <Folder Include="Views\TimeRecorder\Partial\" />
+    <Folder Include="Views\Record\Partial\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />

@@ -1,0 +1,105 @@
+﻿@model Record
+
+@{
+    TimeSpan focusDuration = ViewBag.FocusDuration;
+    TimeSpan breakDuration = ViewBag.BreakDuration;
+}
+
+<h2>Timer</h2>
+
+<div>
+    <p id="timerDisplay">00:00:00</p>
+</div>
+
+<form id="startForm" asp-controller="Timer" asp-action="StartCountdown" method="post">
+    <button type="submit">Start</button>
+</form>
+
+<form id="pauseForm" asp-controller="Timer" asp-action="PauseCountdown" method="post">
+    <button type="submit">Pause</button>
+</form>
+
+<form id="stopForm" asp-controller="Timer" asp-action="StopCountdown" method="post">
+    <button type="submit">Stop</button>
+</form>
+
+<form id="resumeForm" asp-controller="Timer" asp-action="ResumeCountdown" method="post">
+    <button type="submit">Resume</button>
+</form>
+
+@section Scripts {
+    <script>
+        var timer;
+        var totalTime = 0;
+        var isPaused = false;
+        var focusDurationSeconds = @focusDuration.TotalSeconds;
+        var breakDurationSeconds = @breakDuration.TotalSeconds;
+        var save;
+
+        function updateTimeDisplay(hours, minutes, seconds) {
+            document.getElementById('timerDisplay').textContent = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+        }
+
+        function startCountdown() {
+            clearInterval(timer);
+            clearInterval(save);
+
+            totalTime = focusDurationSeconds;
+
+            save = setInterval(saveDuration, 120000); // 2 min
+
+            timer = setInterval(function () {
+                if (!isPaused) {
+                    var hours = parseInt(totalTime / 3600, 10);
+                    var minutes = parseInt((totalTime % 3600) / 60, 10);
+                    var seconds = parseInt(totalTime % 60, 10);
+
+                    hours = hours < 10 ? "0" + hours : hours;
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    updateTimeDisplay(hours, minutes, seconds);
+
+                    if (--totalTime === 0) {
+                        clearInterval(timer);
+                        updateTimeDisplay(0, 0, 0);
+                        saveDuration();
+                    }
+                }
+            }, 1000);
+        }
+
+        function pauseCountdown() {
+            isPaused = true;
+        }
+
+        function resumeCountdown() {
+            isPaused = false;
+            startCountdown();
+        }
+
+        function stopCountdown() {
+            clearInterval(timer);
+            clearInterval(save)
+            updateTimeDisplay(0, 0, 0);
+            totalTime = 0;
+            isPaused = false;
+            saveDuration();
+        }
+
+        function saveDuration() {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SaveDuration", "Timer")',
+                data: {
+                    duration: focusDurationSeconds - totalTime
+                },
+                success: function (data) {
+                },
+                error: function (error) {
+                }
+            });
+        }
+
+    </script>
+}

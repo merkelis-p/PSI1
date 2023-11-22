@@ -8,16 +8,16 @@ namespace WakeyWakey.Services
 {
     public class TimeServiceThread
     {
-        private readonly IApiService<TimeRecorder> _timeTracker;
+        private readonly IApiService<Record> _timeTracker;
 
-        public TimeServiceThread(IApiService<TimeRecorder> timeTracker)
+        public TimeServiceThread(IApiService<Record> timeTracker)
         {
             _timeTracker = timeTracker;
         }
 
         public void StartTimer(int id, DateTime startTime)
         {
-            var timeRecorder = new TimeRecorder
+            var Record = new Record
             {
                 RecorderId = id,
                 StartTimeStamp = startTime
@@ -27,10 +27,10 @@ namespace WakeyWakey.Services
                 while (true)
                 {
                     var elapsedTime = DateTime.Now - startTime;
-                    timeRecorder.Duration = elapsedTime;
+                    Record.Duration = elapsedTime;
                     if (elapsedTime.TotalMinutes % 5 == 0)
                     {
-                        _timeTracker.UpdateAsync(id, timeRecorder);
+                        _timeTracker.UpdateAsync(id, Record);
                     }
                     Thread.Sleep(1000);
                 }

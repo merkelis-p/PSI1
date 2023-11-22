@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace WakeyWakey.Models;
-public class TimeRecorder
+public class Record
 {
     public int RecorderId { get; set; }
     public DateTime StartTimeStamp { get; set; }
