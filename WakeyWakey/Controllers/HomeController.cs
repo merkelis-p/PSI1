@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
+
 namespace WakeyWakey.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserApiService _userService;
+        private readonly ApiService<User> _userService;
         ApiService<Event> _apiService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, UserApiService userService, ApiService<Event> apiService)
+        public HomeController(ILogger<HomeController> logger, ApiService<User> userService, ApiService<Event> apiService)
         {
             _logger = logger;
             _userService = userService;
@@ -80,20 +81,25 @@ namespace WakeyWakey.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password, string email)
         {
-            try
-            {
-                await _userService.ValidateRegister(username, email, password);
-            } catch (Exception e)
-            {
-                _logger.LogError(e.Message);
-                ModelState.AddModelError(string.Empty, "Invalid register attempt.");
-                return View();
-            }
+            using var hmac = new HMACSHA512();
 
-            return RedirectToAction("Login", "Home");
+            var newUser = new User
+            {
+                Username = username,
+                Email = email,
+                Password = password
+            };
+
+            await _userService.AddAsync(newUser);
+
+            // Log the user in after registering
+            HttpContext.Session.SetString("User", newUser.Username);
+            return RedirectToAction("Index", "Dashboard");
         }
 
         [HttpPost]
@@ -103,11 +109,14 @@ namespace WakeyWakey.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
+
     }
+
 }

@@ -1,44 +1,27 @@
+﻿@model WakeyWakey.Models.SubjectModel
 @{
-    var courseId = Context.Request.RouteValues["courseId"];
-    ViewData["Title"] = "Edit Subject";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit subject";
 }
-@model WakeyWakey.Models.Subject
 
-<head>
-    <style>
-          
-          .btn {
-              padding: 20px 30px;
-              border-radius: 15px;
-              cursor: pointer;
-              border: none;
-              transition: 0.2s ease;
-              margin: 20px 0 0 0;
-        
-          }
-          
-          .btn.btn-primary {
-              background-color: #0099cc;
-              color: white;
-          }
-          
-          .btn.btn-primary:hover {
-              background-color: #cc0000;
-              color: white;
-          }
-          
-  
-    </style>
-
-</head>
-
-
-<h2>@ViewData["Title"]</h2>
-
-<form asp-controller="Subject" asp-action="Edit" asp-route-courseId="@courseId" asp-route-id="@Model.Id" method="post">
-    <input type="hidden" asp-for="CourseId" value="@courseId" />
-    <input type="hidden" asp-for="Id" value="@Model.Id"/>
-    <partial name="Partial/_SubjectFormPartial"/>
-    <button type="submit" class="btn btn-primary">Update</button>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="StartDateTime"></label>
+        <input asp-for="StartDateTime" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDateTime"></label>
+        <input asp-for="EndDateTime" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index">Cancel</a>
 </form>

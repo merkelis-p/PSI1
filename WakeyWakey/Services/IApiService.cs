@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 namespace WakeyWakey.Services;
 
 public interface IApiService<T>

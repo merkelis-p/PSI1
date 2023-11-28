@@ -16,10 +16,8 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<ApiService<Event>>();
-builder.Services.AddScoped<UserApiService>();
-builder.Services.AddScoped <TaskApiService>();
-builder.Services.AddScoped<CourseApiService>();
-builder.Services.AddScoped<SubjectApiService>();
+builder.Services.AddScoped<ApiService<User>>();
+builder.Services.AddScoped<ApiService<Course>>();
 builder.Services.AddScoped<SubjectStreamReader>();
 
 
@@ -36,10 +34,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/ Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+void ConfigureServices(IServiceCollection services)
+{
+    services.AddScoped<SubjectStreamReader>();
+}
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -53,10 +56,8 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Define default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-

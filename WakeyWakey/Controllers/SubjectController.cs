@@ -1,106 +1,75 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WakeyWakey.Models;
 using WakeyWakey.Services;
-using Newtonsoft.Json;
 
-namespace WakeyWakey.Controllers
+namespace WakeyWakey.Controllers;
+
+public class SubjectController : Controller
 {
-    [Authorize]
-    [Route("Course/{courseId}/[controller]")]
-    public class SubjectController : Controller
+    private readonly SubjectStreamReader _subjectStreamReader;
+
+    public SubjectController(SubjectStreamReader subjectStreamReader)
     {
-        private readonly SubjectApiService _subjectService;
-        private readonly ILogger<SubjectController> _logger;
+        _subjectStreamReader = subjectStreamReader;
+    }
 
-        public SubjectController(SubjectApiService subjectService, ILogger<SubjectController> logger)
+    public IActionResult Index()
+    {
+        var subjects = _subjectStreamReader.GetAllSubjects(); // extention method fulfilled
+        return View(subjects);
+    }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(SubjectModel subject)
+    {
+        if (ModelState.IsValid)
         {
-            _subjectService = subjectService;
-            _logger = logger;
+            _subjectStreamReader.AddSubject(subject);
+            return RedirectToAction("Index");
         }
+        return View(subject);
+    }
 
-        [HttpGet("Index")]
-        public async Task<IActionResult> Index(int courseId)
+    public IActionResult Edit(int id)
+    {
+        var subject = _subjectStreamReader.GetSubject(id);
+        if (subject == null)
         {
-            var subjects = await _subjectService.GetSubjectsByCourseIdAsync(courseId);
-            if (subjects == null || !subjects.Any())
-            {
-                ViewBag.IsEmpty = true;
-                ViewBag.CourseId = courseId;
-                return View(new List<Subject>()); 
-            }
-
-            return View(subjects);
+            return NotFound();
         }
+        return View(subject);
+    }
 
-        [HttpGet("Create")]
-        public IActionResult Create(int courseId)
+    [HttpPost]
+    public IActionResult Edit(SubjectModel subject)
+    {
+        if (ModelState.IsValid)
         {
-            ViewBag.CourseId = courseId;
-            return View(new Subject { CourseId = courseId });
+            _subjectStreamReader.UpdateSubject(subject);
+            return RedirectToAction("Index");
         }
+        return View(subject);
+    }
 
-
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create(int courseId, Subject subject)
+    public IActionResult Delete(int id)
+    {
+        var subject = _subjectStreamReader.GetSubject(id);
+        if (subject == null)
         {
-            _logger.LogInformation($"Invalid! Trying to add subject: {JsonConvert.SerializeObject(subject)} for course ID: {courseId}");
-            
-            if (ModelState.IsValid)
-            {
-                subject.CourseId = courseId;  // Ensure the subject is linked to the course
-                _logger.LogInformation($"Trying to add subject: {JsonConvert.SerializeObject(subject)} for course ID: {courseId}");
-
-                await _subjectService.AddAsync(subject);
-                return RedirectToAction(nameof(Index), new { courseId });
-            }
-            return View(subject);
+            return NotFound();
         }
+        return View(subject);
+    }
 
-        
-        [HttpGet("Edit/{id}")]
-        public async Task<IActionResult> Edit(int courseId, int id)
-        {
-            var subject = await _subjectService.GetByIdAsync(id);
-            if (subject == null)
-            {
-                return NotFound();
-            }
-            return View(subject);
-        }
-
-        [HttpPost("Edit/{id}")]
-        public async Task<IActionResult> Edit(int courseId, int id, Subject subject)
-        {
-            if (id != subject.Id)
-            {
-                return BadRequest();
-            }
-
-            if (ModelState.IsValid)
-            {
-                await _subjectService.UpdateAsync(id, subject);
-                return RedirectToAction(nameof(Index), new { courseId });
-            }
-            return View(subject);
-        }
-
-        [HttpGet("Delete/{id}")]
-        public async Task<IActionResult> Delete(int courseId, int id)
-        {
-            var subject = await _subjectService.GetByIdAsync(id);
-            if (subject == null)
-            {
-                return NotFound();
-            }
-            return View(subject);
-        }
-
-        [HttpPost("Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirmed(int courseId, int id)
-        {
-            await _subjectService.DeleteAsync(id);
-            return RedirectToAction(nameof(Index), new { courseId });
-        }
+    [HttpPost]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        _subjectStreamReader.DeleteSubject(id);
+        return RedirectToAction("Index");
     }
 }

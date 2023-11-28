@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-using WakeyWakey.Enums;
 
 namespace WakeyWakey.Models
 {
@@ -40,8 +39,5 @@ namespace WakeyWakey.Models
 
         [ForeignKey("User")]
         public int UserId { get; set; }
-        
-        public IEnumerable<Subject>? Subjects { get; set; }
-
     }
 }
