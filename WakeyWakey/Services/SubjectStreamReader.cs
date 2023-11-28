@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,9 +6,7 @@ using WakeyWakey.Models;
 
 namespace WakeyWakey.Services;
 
-
-
-public class SubjectStreamReader : IEnumerable<SubjectModel>
+public class SubjectStreamReader
 {
     private List<SubjectModel> _subjects;
     private readonly string _dataFilePath = "Services/Subjects.csv";
@@ -114,15 +111,5 @@ public class SubjectStreamReader : IEnumerable<SubjectModel>
         {
             writer.WriteLine($"{subject.Id},{subject.CourseId},{subject.Name},{subject.Description},{subject.StartDateTime},{subject.EndDateTime}");
         }
-    }
-
-    public IEnumerator<SubjectModel> GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        throw new NotImplementedException();
     }
 }

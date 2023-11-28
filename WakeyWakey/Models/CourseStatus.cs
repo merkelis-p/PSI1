@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace WakeyWakey.Enums;
+namespace WakeyWakey.Models;
 
 public enum CourseStatus
 {
