@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
+
 
 
 namespace WakeyWakey.Controllers
@@ -86,6 +88,20 @@ namespace WakeyWakey.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password, string email)
         {
+            var emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+            var usernameRegex = new Regex(@"^[A-Za-z][A-Za-z0-9_]*$");
+
+            if (!emailRegex.IsMatch(email))
+            {
+                ModelState.AddModelError("email", "Invalid email format.");
+                return View();
+            }
+
+            if (!usernameRegex.IsMatch(username))
+            {
+                ModelState.AddModelError("username", "Username must start with a letter and can only contain letters, numbers, and underscores.");
+                return View();
+            }
             using var hmac = new HMACSHA512();
 
             var newUser = new User
