@@ -21,11 +21,7 @@ namespace WakeyWakey.Controllers
             _eventsService = eventService;
             _logger = logger;
         }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
+        
 
         public async Task<IActionResult> Index()
         {
@@ -39,7 +35,7 @@ namespace WakeyWakey.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(calendarEvent);
+                return RedirectToAction("Index", "Calendar");
             }
 
             try
@@ -52,7 +48,8 @@ namespace WakeyWakey.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error creating event");
-                return View(calendarEvent);
+                return RedirectToAction("Index", "Calendar");
+
             }
         }
 
@@ -98,7 +95,8 @@ namespace WakeyWakey.Controllers
             
 
             var calendarEvent = await _eventsService.GetByIdAsync(id);
-            return View(calendarEvent);
+            return RedirectToAction("Index", "Calendar");
+
         }
 
 

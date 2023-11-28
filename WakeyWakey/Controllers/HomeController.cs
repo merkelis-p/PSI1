@@ -14,22 +14,15 @@ namespace WakeyWakey.Controllers
     public class HomeController : Controller
     {
         private readonly UserApiService _userService;
-        ApiService<Event> _apiService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, UserApiService userService, ApiService<Event> apiService)
+        public HomeController(ILogger<HomeController> logger, UserApiService userService)
         {
             _logger = logger;
             _userService = userService;
-            _apiService = apiService;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Calendar()
         {
             return View();
         }
@@ -99,10 +92,8 @@ namespace WakeyWakey.Controllers
                 ModelState.AddModelError("username", "Username must start with a letter and can only contain letters, numbers, and underscores.");
                 return View();
             }
-            using var hmac = new HMACSHA512();
-
-            var newUser = new User
-            {
+            
+            try {
                 await _userService.ValidateRegister(username, email, password);
             } catch (Exception e)
             {
