@@ -1,0 +1,67 @@
+@using WakeyWakey.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model WakeyWakey.Models.Task
+@{
+    var taskCategoryItems = Html.GetEnumSelectList<TaskCategory>();
+    var formattedDeadlineDate = Model.DeadlineDate?.ToString("yyyy-MM-ddTHH:mm");
+    var taskStatusItems = Html.GetEnumSelectList<WakeyWakey.Enums.TaskStatus>();
+}
+<input type="hidden" asp-for="UserId" />
+
+<div class="form-group">
+    <label>Name</label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label>Description</label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+</div>
+<div class="form-group">
+    <label>Estimated Duration (minutes)</label>
+    <input asp-for="EstimatedDuration" class="form-control" type="number" />
+</div>
+
+<div class="form-group">
+    <label>Deadline Date</label>
+    <input type="datetime-local" asp-for="DeadlineDate" class="form-control" value="@formattedDeadlineDate" />
+</div>
+<div class="form-group">
+    <label>Category</label>
+    <select asp-for="Category" asp-items="taskCategoryItems" class="form-control"></select>
+</div>
+<div class="form-group">
+    <label>Status</label>
+    <select asp-for="Status" asp-items="taskStatusItems" class="form-control"></select>
+</div>
+<div class="form-group">
+    <label for="SubjectOrTaskId">Select Subject or Task</label>
+    <select asp-for="SubjectOrTaskId" class="form-control">
+        <option value="">Select Subject or Task</option>
+        @foreach (var item in ViewBag.HierarchySelectList as List<SelectListItem>)
+        {
+            if (item.Disabled)
+            {
+                <optgroup label="@item.Text"></optgroup>
+            }
+            else
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        }
+    </select>
+</div>
+<div class="form-group">
+    <label>Score Weight</label>
+    <input asp-for="ScoreWeight" class="form-control" />
+</div>
+<div class="form-group">
+    <label>Score</label>
+    <input asp-for="Score" class="form-control" />
+</div>
+
+
+
+
+
+

@@ -1,24 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 using WakeyWakey.Enums;
 
 namespace WakeyWakey.Models
 {
-    public class Course
+    public class Subject
     {
 
-        public Course()
+        public Subject()
         {
             StartDate = DateTime.Now;
             EndDate = DateTime.Now.AddHours(1);
-            Status = CourseStatus.Pending;
+            Status = CourseStatus.NotStarted;
         }
-
         public int Id { get; set; }
 
         [Required]
@@ -28,20 +21,16 @@ namespace WakeyWakey.Models
         [MaxLength(5000)]
         public string? Description { get; set; }
 
-        [Required]
-        public DateTime StartDate { get; set; }
-
-        [Required]
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [Required]
         public CourseStatus Status { get; set; }
         public int? Score { get; set; }
+        public int? ScoreWeight { get; set; }
 
-        [ForeignKey("User")]
-        public int UserId { get; set; }
+        public int CourseId { get; set; }
         
-        public IEnumerable<Subject>? Subjects { get; set; }
-
+        public IEnumerable<Task>? Tasks { get; set; }
     }
 }

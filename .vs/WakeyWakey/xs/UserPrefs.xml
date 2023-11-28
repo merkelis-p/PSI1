@@ -1,0 +1,55 @@
+﻿<Properties StartupConfiguration="{7B85F262-8AAF-4EE9-B868-F14EED503657}|https">
+  <MonoDevelop.Ide.ItemProperties.WakeyWakey PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WakeyWakey/Controllers/CourseController.cs">
+    <Files>
+      <File FileName="WakeyWakey/Services/SubjectStreamReader.cs" />
+      <File FileName="WakeyWakey/Models/Task.cs" />
+      <File FileName="WakeyWakey/Views/Course/Edit.cshtml" />
+      <File FileName="WakeyWakey/Views/Course/Delete.cshtml" />
+      <File FileName="WakeyWakey/Controllers/CourseController.cs" Line="33" Column="9" />
+      <File FileName="WakeyWakey/Views/Home/Index.cshtml" />
+      <File FileName="WakeyWakey/Views/Course/Create.cshtml" />
+      <File FileName="WakeyWakey/Services/ApiService.cs" />
+      <File FileName="WakeyWakey/Views/Course/Partial/_CourseFormPartial.cshtml" />
+      <File FileName="WakeyWakey/Program.cs" />
+      <File FileName="WakeyWakey/Views/Course/Index.cshtml" />
+      <File FileName="WakeyWakey/appsettings.json" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WakeyWakey" expanded="True">
+            <Node name="WakeyWakey" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="CourseController.cs" selected="True" />
+              </Node>
+              <Node name="Extensions" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Services" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Course" expanded="True">
+                  <Node name="Partial" expanded="True" />
+                </Node>
+                <Node name="Dashboard" expanded="True" />
+                <Node name="Home" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="_Layout.cshtml" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="css" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -7,6 +7,7 @@ using WakeyWakey.Services;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 
 namespace WakeyWakey.Controllers
@@ -14,11 +15,11 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class CourseController : Controller
     {
-        private readonly ApiService<Course> _courseService;
+        private readonly CourseApiService _courseService;
         private readonly ILogger<CourseController> _logger;
 
 
-        public CourseController(ApiService<Course> courseService, ILogger<CourseController> logger)
+        public CourseController(CourseApiService courseService, ILogger<CourseController> logger)
         {
             _courseService = courseService;
             _logger = logger;
@@ -57,6 +58,7 @@ namespace WakeyWakey.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 await _courseService.AddAsync(course);
                 return RedirectToAction(nameof(Index));
             }
