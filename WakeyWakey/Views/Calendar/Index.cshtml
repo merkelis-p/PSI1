@@ -1,0 +1,240 @@
+﻿@model IEnumerable<WakeyWakey.Models.Event>
+@{
+    ViewBag.title = "Calendar";
+}
+
+<link rel="stylesheet" href="~/css/fullcalendar.min.css" />
+
+
+<style>
+    .btn {
+        padding: 20px 30px;
+        border-radius: 15px;
+        cursor: pointer;
+        border: none;
+        transition: 0.2s ease;
+        margin: 20px 0 0 0;
+    }
+
+        .btn.btn-default {
+            background-color: #0099cc;
+            color: white;
+        }
+
+            .btn.btn-default:hover {
+                background-color: #1370bb;
+                color: white;
+            }
+
+        .btn.btn-danger {
+            background-color: #cc0000;
+            color: white;
+        }
+
+            .btn.btn-danger:hover {
+                background-color: #6c0909;
+                color: white;
+            }
+
+        .btn.btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+            .btn.btn-success:hover {
+                background-color: #218838;
+                color: white;
+            }
+
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+        z-index: 1000;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        background-color: #FFFFFF; /* Solid white background */
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Adding shadow */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+
+
+<!-- Trigger/Open The Modal -->
+<button id="btnAddEvent">Add Event</button>
+
+<!-- The Modal for Adding Event -->
+<div id="eventModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Event</h2>
+        <form asp-controller="Calendar" asp-action="Create" method="post">
+            <div>
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" name="Name" required>
+            </div>
+            <div>
+                <label for="eventStartDate">Start Date:</label>
+                <input type="datetime-local" id="eventStartDate" name="StartDate" required>
+            </div>
+            <div>
+                <label for="eventEndDate">End Date:</label>
+                <input type="datetime-local" id="eventEndDate" name="EndDate" required>
+            </div>
+            <div>
+                <label for="eventRecurring">Recurring:</label>
+                <input type="number" id="eventRecurring" name="Recurring">
+            </div>
+            <div>
+                <label for="eventDescription">Description:</label>
+                <textarea id="eventDescription" name="Description"></textarea>
+            </div>
+            <div>
+                <label for="eventLocation">Location:</label>
+                <input type="text" id="eventLocation" name="Location">
+            </div>
+            <!-- Additional fields as needed -->
+            <button type="submit" class="btn btn-success">Add Event</button>
+        </form>
+    </div>
+</div>
+
+<!-- The Modal for Event Details -->
+<div id="eventDetailsModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeDetailsModal()">&times;</span>
+        <h2>Event Details</h2>
+        <div id="eventDetails"></div>
+        <button id="deleteEvent" class="btn btn-danger">Delete</button>
+        <button onclick="closeDetailsModal()" class="btn btn-default">Close</button>
+    </div>
+</div>
+
+<div id="calendar"></div>
+
+@section scripts{
+    <script src="~/scripts/moment.min.js"></script>
+    <script src="~/scripts/FullCalendar.2.2.5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var selectedEventId = null;
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: '@DateTime.Now',
+                defaultView: 'month',
+                editable: true,
+                events: [
+                    @foreach (var calendarEvent in Model) {
+                        <text>{
+                            id: '@calendarEvent.Id',
+                            title: '@calendarEvent.Name',
+                            start: '@calendarEvent.StartDate.ToString("s")',
+                            end: '@calendarEvent.EndDate.ToString("s")',
+                            description: '@calendarEvent.Description',
+                            location: '@calendarEvent.Location',
+                            recurring: '@calendarEvent.Recurring'
+                        }</text>
+                        @if (calendarEvent != Model.Last()) {
+                            <text>,</text>
+                        }
+                    }
+                ],
+                eventClick: function (event) {
+                    selectedEventId = event.id;
+                    var details = 'Name: ' + event.title +
+                                  '\nStart Date: ' + event.start.format('YYYY-MM-DD HH:mm:ss');
+                    if (event.end) {
+                        details += '\nEnd Date: ' + event.end.format('YYYY-MM-DD HH:mm:ss');
+                    }
+                    if (event.description) {
+                        details += '\nDescription: ' + event.description;
+                    }
+                    if (event.location) {
+                        details += '\nLocation: ' + event.location;
+                    }
+                    if (event.recurring) {
+                        details += '\nRecurring: ' + event.recurring;
+                    }
+                    $('#eventDetails').text(details);
+                    $('#eventDetailsModal').show();
+                }
+            });
+
+            window.closeDetailsModal = function() {
+                $('#eventDetailsModal').hide();
+            };
+
+            window.deleteSelectedEvent = function() {
+                if (selectedEventId && confirm("Do you want to delete this event?")) {
+                    $.ajax({
+                        url: '/Calendar/Delete/' + selectedEventId,
+                        type: 'POST',
+                        success: function() {
+                            $('#calendar').fullCalendar('removeEvents', selectedEventId);
+                            closeDetailsModal();
+                            //alert("Event deleted successfully!");
+                        },
+                        error: function() {
+                            alert("Error deleting event.");
+                        }
+                    });
+                }
+            };
+
+            $('#deleteEvent').on('click', function () {
+                deleteSelectedEvent();
+            });
+
+            var modal = document.getElementById("eventModal");
+            var btn = document.getElementById("btnAddEvent");
+            var span = document.getElementsByClassName("close")[0];
+
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        });
+    </script>
+}

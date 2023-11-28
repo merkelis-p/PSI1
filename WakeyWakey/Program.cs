@@ -18,6 +18,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddScoped<ApiService<Event>>();
 builder.Services.AddScoped<ApiService<User>>();
 builder.Services.AddScoped<ApiService<Course>>();
+builder.Services.AddScoped<IApiService<Event>, ApiService<Event>>();
 builder.Services.AddScoped<SubjectStreamReader>();
 
 
@@ -41,6 +42,7 @@ if (!app.Environment.IsDevelopment())
 void ConfigureServices(IServiceCollection services)
 {
     services.AddScoped<SubjectStreamReader>();
+
 }
 
 

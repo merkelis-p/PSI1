@@ -20,12 +20,27 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Views\Dashboard\" />
+    <None Remove="Views\Calendar\" />
+    <None Remove="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Calendar\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.lt-LT.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.lt-LT.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\Resource.lt-LT.Designer.cs">
+      <DependentUpon>Resource.lt-LT.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
