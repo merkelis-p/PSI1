@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using WakeyWakey.Models;
@@ -11,12 +10,13 @@ using WakeyWakey.Models;
 namespace WakeyWakey.Services;
 
 
-public class ApiService<T> : IApiService<T>
+public class ApiService<T>:IApiService<T>
 {
     private readonly HttpClient _httpClient;
     private readonly string _endpoint;
+
+
     private readonly ILogger<ApiService<T>> _logger;
-    private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
 
     public ApiService(IConfiguration configuration, ILogger<ApiService<T>> logger)
     {
@@ -29,12 +29,23 @@ public class ApiService<T> : IApiService<T>
         _endpoint = $"api/{typeof(T).Name}";
     }
 
+
+    //public async Task<IEnumerable<T>> GetAllAsync()
+    //{
+    //    var response = await _httpClient.GetAsync(_endpoint);
+    //    response.EnsureSuccessStatusCode();
+
+    //    var content = await response.Content.ReadAsStringAsync();
+    //    return JsonSerializer.Deserialize<IEnumerable<T>>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    //}
+
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         try
         {
             var response = await _httpClient.GetAsync(_endpoint);
 
+            // You might want to check for specific HTTP status codes here
             if (!response.IsSuccessStatusCode)
             {
                 _logger.LogError($"API call to {_endpoint} failed with status code {response.StatusCode}");
@@ -48,12 +59,12 @@ public class ApiService<T> : IApiService<T>
         catch (HttpRequestException ex)
         {
             _logger.LogError(ex, "HttpRequestException occurred while calling API");
-            throw;
+            throw; // Re-throwing the exception to be handled by the caller
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unexpected error occurred in GetAllAsync");
-            throw;
+            throw; // Re-throwing the exception to be handled by the caller
         }
     }
 
@@ -66,77 +77,55 @@ public class ApiService<T> : IApiService<T>
         var content = await response.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<T>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
-
+    
     public async Task<T> AddAsync(T entity)
     {
+
         var jsonData = JsonSerializer.Serialize(entity);
-        var content = new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json");
+        _logger.LogInformation($"Adding entity: {jsonData}");
 
-        await _semaphoreSlim.WaitAsync();
-        try
+        var content = new StringContent(JsonSerializer.Serialize(entity), System.Text.Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync(_endpoint, content);
+
+        if (!response.IsSuccessStatusCode) // Check if response status is not in the successful range (200-299)
         {
-            _logger.LogInformation($"Adding entity: {jsonData}");
-            var response = await _httpClient.PostAsync(_endpoint, content);
+            var errorContent = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode) // Check if response status is not in the successful range (200-299)
+            switch (response.StatusCode)
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
+                case System.Net.HttpStatusCode.InternalServerError:
+                    throw new Exception($"API call failed with status code {response.StatusCode}. Error: {errorContent}");
 
-                switch (response.StatusCode)
-                {
-                    case System.Net.HttpStatusCode.InternalServerError:
-                        throw new Exception($"API call failed with status code {response.StatusCode}. Error: {errorContent}");
+                case System.Net.HttpStatusCode.BadRequest:
+                    throw new Exception($"API call was bad request with status code {response.StatusCode}. Error: {errorContent}");
 
-                    case System.Net.HttpStatusCode.BadRequest:
-                        throw new Exception($"API call was bad request with status code {response.StatusCode}. Error: {errorContent}");
-
-                    // Add other specific status codes as needed.
-
-                    default:
-                        throw new Exception($"API call failed with status code {response.StatusCode}. Error: {errorContent}");
-                }
+                // Add other specific status codes as needed.
+            
+                default:
+                    throw new Exception($"API call failed with status code {response.StatusCode}. Error: {errorContent}");
             }
-
-            var responseBody = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
-        finally
-        {
-            _semaphoreSlim.Release();
-        }
+        
+        var responseBody = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<T>(responseBody, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
     public async Task<bool> UpdateAsync(int id, T entity)
     {
         var jsonData = JsonSerializer.Serialize(entity);
+        _logger.LogInformation($"Updating entity: {jsonData}");
+
         var content = new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync($"{_endpoint}/{id}", content);
+        response.EnsureSuccessStatusCode();
 
-        await _semaphoreSlim.WaitAsync();
-        try
-        {
-            _logger.LogInformation($"Updating entity: {jsonData}");
-            var response = await _httpClient.PutAsync($"{_endpoint}/{id}", content);
-            return response.IsSuccessStatusCode;
-        }
-        finally
-        {
-            _semaphoreSlim.Release();
-        }
+        return response.IsSuccessStatusCode;
     }
-
 
     public async Task<bool> DeleteAsync(int id)
     {
-        await _semaphoreSlim.WaitAsync();
-        try
-        {
-            var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
-            return response.IsSuccessStatusCode;
-        }
-        finally
-        {
-            _semaphoreSlim.Release();
-        }
+        var response = await _httpClient.DeleteAsync($"{_endpoint}/{id}");
+        return response.IsSuccessStatusCode;
     }
 
 
