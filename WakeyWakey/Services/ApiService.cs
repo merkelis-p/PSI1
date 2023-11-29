@@ -11,12 +11,16 @@ using WakeyWakey.Models;
 namespace WakeyWakey.Services;
 
 
+public delegate void LogHandlerDelegate(LogLevel loggingLevel, string message);
+
 public class ApiService<T>:IApiService<T>
 {
-    private readonly HttpClient _httpClient;
+    public readonly HttpClient _httpClient;
     private readonly string _endpoint;
     private readonly ILogger<ApiService<T>> _logger;
+    public LogHandlerDelegate Log;
     private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
+
 
     public ApiService(IConfiguration configuration, ILogger<ApiService<T>> logger)
     {
@@ -27,6 +31,7 @@ public class ApiService<T>:IApiService<T>
 
         _logger = logger;
         _endpoint = $"api/{typeof(T).Name}";
+        Log = LogHandler;
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
@@ -70,6 +75,8 @@ public class ApiService<T>:IApiService<T>
     public async Task<T> AddAsync(T entity)
     {
         var jsonData = JsonSerializer.Serialize(entity);
+        //_logger.LogInformation($"Adding entity: {jsonData}");
+        Log?.Invoke(LogLevel.Information, $"Adding entity: {jsonData}");
         var content = new StringContent(jsonData, System.Text.Encoding.UTF8, "application/json");
 
         await _semaphoreSlim.WaitAsync();
@@ -151,5 +158,9 @@ public class ApiService<T>:IApiService<T>
         return await response.Content.ReadAsAsync<LoginValidationResult>();
     }
 
+    public void LogHandler(LogLevel loggingLevel, string message)
+    {
+        _logger.Log(loggingLevel, message);
+    }   
 
 }
