@@ -13,10 +13,10 @@ namespace WakeyWakey.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UserApiService _userService;
+        private readonly IUserApiService _userService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger, UserApiService userService)
+        public HomeController(ILogger<HomeController> logger, IUserApiService userService)
         {
             _logger = logger;
             _userService = userService;

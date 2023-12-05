@@ -12,13 +12,12 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class TaskController : Controller
     {
-        private readonly TaskApiService _taskService;
-        private readonly CourseApiService _courseService;
-        private readonly ApiService<Subject> _subjectService;
+        private readonly ITaskApiService _taskService;
+        private readonly ICourseApiService _courseService;
 
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(TaskApiService taskService, CourseApiService courseService,  ILogger<TaskController> logger)
+        public TaskController(ITaskApiService taskService, ICourseApiService courseService,  ILogger<TaskController> logger)
         {
             _taskService = taskService;
             _courseService = courseService;

@@ -13,9 +13,9 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class DashboardController : Controller
     {
-        IApiService<Event> _apiService;
+        IEventApiService _apiService;
 
-        public DashboardController(IApiService<Event> apiService)
+        public DashboardController(IEventApiService apiService)
         {
             _apiService = apiService;
         }

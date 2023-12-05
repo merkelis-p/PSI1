@@ -5,7 +5,7 @@ using Task = System.Threading.Tasks.Task;
 namespace WakeyWakey.Services;
 
 
-public class TaskApiService : ApiService<Models.Task>
+public class TaskApiService : ApiService<Models.Task>, ITaskApiService
 {
     
     public TaskApiService(IConfiguration configuration, ILogger<TaskApiService> logger) : base(configuration, logger)

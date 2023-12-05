@@ -16,11 +16,11 @@ builder.Services.AddSession(options =>
 });
 
 
-builder.Services.AddScoped<UserApiService>();
-builder.Services.AddScoped <TaskApiService>();
-builder.Services.AddScoped<CourseApiService>();
-builder.Services.AddScoped<SubjectApiService>();
-builder.Services.AddScoped<IApiService<Event>, ApiService<Event>>();
+builder.Services.AddScoped<IUserApiService, UserApiService>();
+builder.Services.AddScoped <ITaskApiService, TaskApiService>();
+builder.Services.AddScoped<ICourseApiService, CourseApiService>();
+builder.Services.AddScoped<ISubjectApiService, SubjectApiService>();
+builder.Services.AddScoped<IEventApiService, EventApiService>();
 builder.Services.AddScoped<SubjectStreamReader>();
 
 

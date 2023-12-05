@@ -13,10 +13,10 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class CalendarController : Controller
     {
-        private readonly IApiService<Event> _eventsService;
+        private readonly IEventApiService _eventsService;
         private readonly ILogger<CalendarController> _logger;
 
-        public CalendarController(IApiService<Event> eventService, ILogger<CalendarController> logger)
+        public CalendarController(IEventApiService eventService, ILogger<CalendarController> logger)
         {
             _eventsService = eventService;
             _logger = logger;

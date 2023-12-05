@@ -3,7 +3,7 @@ using WakeyWakey.Models;
 
 namespace WakeyWakey.Services;
 
-public class CourseApiService : ApiService<Course>
+public class CourseApiService : ApiService<Course>, ICourseApiService
 {
     
     public CourseApiService(IConfiguration configuration, ILogger<CourseApiService> logger) : base(configuration, logger)

@@ -2,7 +2,7 @@ using WakeyWakey.Models;
 
 namespace WakeyWakey.Services;
 
-public class UserApiService : ApiService<User>
+public class UserApiService : ApiService<User>, IUserApiService
 {
     
     public UserApiService(IConfiguration configuration, ILogger<UserApiService> logger) : base(configuration, logger)

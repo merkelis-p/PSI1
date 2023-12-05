@@ -15,11 +15,11 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class CourseController : Controller
     {
-        private readonly CourseApiService _courseService;
+        private readonly ICourseApiService _courseService;
         private readonly ILogger<CourseController> _logger;
 
 
-        public CourseController(CourseApiService courseService, ILogger<CourseController> logger)
+        public CourseController(ICourseApiService courseService, ILogger<CourseController> logger)
         {
             _courseService = courseService;
             _logger = logger;
