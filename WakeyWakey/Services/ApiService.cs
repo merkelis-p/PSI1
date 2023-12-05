@@ -13,7 +13,7 @@ namespace WakeyWakey.Services;
 
 public class ApiService<T>:IApiService<T>
 {
-    private readonly HttpClient _httpClient;
+    protected readonly HttpClient _httpClient;
     private readonly string _endpoint;
     private readonly ILogger<ApiService<T>> _logger;
     private readonly SemaphoreSlim _semaphoreSlim = new SemaphoreSlim(1, 1);
