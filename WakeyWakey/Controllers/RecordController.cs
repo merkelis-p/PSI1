@@ -152,6 +152,13 @@ public class RecordController : Controller
         return Json(new { success = true });
     }
 
+    [HttpPost]
+    public async Task<IActionResult> SaveState(TimeSpan Duration)
+    {
+        // add the Duration to the total time of Task or Subject or Record
+        return Json(Ok());
+    }
+
     public IActionResult Assigment() //
     {
         return View();

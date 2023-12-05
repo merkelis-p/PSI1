@@ -5,51 +5,51 @@
     TimeSpan breakDuration = ViewBag.BreakDuration;
 }
 
-<h2>Timer</h2>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<div>
-    <p id="timerDisplay">00:00:00</p>
-</div>
+<html>
 
-<form id="startForm" asp-controller="Timer" asp-action="StartCountdown" method="post">
-    <button type="submit">Start</button>
-</form>
+    <h2>Timer</h2>
 
-<form id="pauseForm" asp-controller="Timer" asp-action="PauseCountdown" method="post">
-    <button type="submit">Pause</button>
-</form>
+    <div>
+        <p id="timerDisplay">00:00:00</p>
+    </div>
 
-<form id="stopForm" asp-controller="Timer" asp-action="StopCountdown" method="post">
-    <button type="submit">Stop</button>
-</form>
+    <form id="startForm" asp-controller="Timer" asp-action="StartCountdown" method="post">
+        <button type="submit">Start</button>
+    </form>
 
-<form id="resumeForm" asp-controller="Timer" asp-action="ResumeCountdown" method="post">
-    <button type="submit">Resume</button>
-</form>
+    <form id="pauseForm" asp-controller="Timer" asp-action="PauseCountdown" method="post">
+        <button type="submit">Pause</button>
+    </form>
 
-@section Scripts {
-    <script>
-        var timer;
-        var totalTime = 0;
-        var isPaused = false;
-        var focusDurationSeconds = @focusDuration.TotalSeconds;
-        var breakDurationSeconds = @breakDuration.TotalSeconds;
-        var save;
+    <form id="stopForm" asp-controller="Timer" asp-action="StopCountdown" method="post">
+        <button type="submit">Stop</button>
+    </form>
 
-        function updateTimeDisplay(hours, minutes, seconds) {
-            document.getElementById('timerDisplay').textContent = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
-        }
+    <form id="resumeForm" asp-controller="Timer" asp-action="ResumeCountdown" method="post">
+        <button type="submit">Resume</button>
+    </form>
 
-        function startCountdown() {
-            clearInterval(timer);
-            clearInterval(save);
+    @section Scripts {
+        <script>
+            var focusDurationSeconds = @focusDuration.TotalSeconds;
+            var breakDurationSeconds = @breakDuration.TotalSeconds;
+            var timer;
+            var save;
+            var totalTime = focusDurationSeconds;
 
-            totalTime = focusDurationSeconds;
+            function updateTimeDisplay(hours, minutes, seconds) {
+                document.getElementById('timerDisplay').textContent = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+            }
 
-            save = setInterval(saveDuration, 120000); // 2 min
+            function startCountdown() {
+                clearInterval(timer);
+                clearInterval(save);
 
-            timer = setInterval(function () {
-                if (!isPaused) {
+                save = setInterval(saveDuration, 120000); // 2 min
+
+                timer = setInterval(function () {
                     var hours = parseInt(totalTime / 3600, 10);
                     var minutes = parseInt((totalTime % 3600) / 60, 10);
                     var seconds = parseInt(totalTime % 60, 10);
@@ -61,45 +61,46 @@
                     updateTimeDisplay(hours, minutes, seconds);
 
                     if (--totalTime === 0) {
-                        clearInterval(timer);
                         updateTimeDisplay(0, 0, 0);
                         saveDuration();
+                        clearInterval(timer);
                     }
-                }
-            }, 1000);
-        }
+                }, 1000);
+            }
 
-        function pauseCountdown() {
-            isPaused = true;
-        }
+            function pauseCountdown() {
+                saveDuration();
+                clearInterval(timer);
+                clearInterval(save);
+            }
 
-        function resumeCountdown() {
-            isPaused = false;
-            startCountdown();
-        }
+            function resumeCountdown() {
+                startCountdown();
+            }
 
-        function stopCountdown() {
-            clearInterval(timer);
-            clearInterval(save)
-            updateTimeDisplay(0, 0, 0);
-            totalTime = 0;
-            isPaused = false;
-            saveDuration();
-        }
+            function stopCountdown() {
+                updateTimeDisplay(0, 0, 0);
+                saveDuration();
+                isPaused = false;
+                totalTime = 0;
+                clearInterval(timer);
+                clearInterval(save)
+            }
 
-        function saveDuration() {
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SaveDuration", "Timer")',
-                data: {
-                    duration: focusDurationSeconds - totalTime
-                },
-                success: function (data) {
-                },
-                error: function (error) {
-                }
-            });
-        }
+            function saveDuration() {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("SaveState", "Record")',
+                    data: {
+                        duration: totalTime
+                    },
+                    success: function (data) {
+                    },
+                    error: function (error) {
+                    }
+                });
+            }
 
-    </script>
-}
+        </script>
+    }
+</html>
