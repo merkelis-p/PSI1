@@ -21,7 +21,10 @@ public class RecordController : Controller
 
     public async Task<IActionResult> Index()
     {
+
+        //var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
         var times = await _timeTracker.GetAllAsync();
+        //var userTimeRecords = times.Where(times => times.UserId == userId).ToList();
         return View(times);
     }
 
@@ -58,7 +61,7 @@ public class RecordController : Controller
         Record.Duration = TimeSpan.FromSeconds(TotalDurationSeconds);
         Record.FocusDuration = TimeSpan.FromSeconds(focusDurationSeconds);
         Record.BreakDuration = TimeSpan.FromSeconds(breakDurationSeconds);
-        Record.BreakFreaquency = breakFrequency;
+        Record.BreakFrequency = breakFrequency;
 
         try
         {
