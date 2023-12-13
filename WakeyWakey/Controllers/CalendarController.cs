@@ -21,21 +21,37 @@ namespace WakeyWakey.Controllers
             _eventsService = eventService;
             _logger = logger;
         }
-        
+
+        // public IActionResult Create()
+        // {
+        //     return View();
+        // }
 
         public async Task<IActionResult> Index()
         {
-            var events = await _eventsService.GetAllAsync();
-            var userEvents = events.ToList();
-            return View(userEvents);
+            try
+            {   
+                var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                var events = await _eventsService.GetEventsByUserIdAsync(userId);
+                var userEvents = events.ToList();
+                
+                return View(userEvents);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching events in Index method");
+                // Handle the error appropriately
+                return View();
+            }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(Event calendarEvent) // Changed 'event' to 'calendarEvent'
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Calendar");
+                return RedirectToAction("Index");
             }
 
             try
@@ -48,8 +64,7 @@ namespace WakeyWakey.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error creating event");
-                return RedirectToAction("Index", "Calendar");
-
+                return RedirectToAction("Index");
             }
         }
 
@@ -72,18 +87,33 @@ namespace WakeyWakey.Controllers
             return Json(userEvents);
         }
 
+        //[HttpPost]                                        OLD DELETE IMPLEMENTATION
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    try
+        //    {
+        //        await _eventsService.DeleteAsync(id);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error deleting event");
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //} 
+
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _eventsService.DeleteAsync(id);
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error deleting event");
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = false });
             }
         }
 
@@ -95,8 +125,7 @@ namespace WakeyWakey.Controllers
             
 
             var calendarEvent = await _eventsService.GetByIdAsync(id);
-            return RedirectToAction("Index", "Calendar");
-
+            return RedirectToAction("Index");
         }
 
 

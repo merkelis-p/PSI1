@@ -1,0 +1,68 @@
+@{
+    ViewData["Title"] = "Add event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model WakeyWakey.Models.Event
+<head>
+    <style>
+        .btn {
+            padding: 20px 30px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s ease;
+            margin: 20px 0 0 0;
+        }
+
+            .btn.btn-default {
+                background-color: #0099cc;
+                color: white;
+            }
+
+                .btn.btn-default:hover {
+                    background-color: #1370bb;
+                    color: white;
+                }
+
+            .btn.btn-danger {
+                background-color: #cc0000;
+                color: white;
+            }
+
+                .btn.btn-danger:hover {
+                    background-color: #6c0909;
+                    color: white;
+                }
+
+            .btn.btn-success {
+                background-color: #28a745;
+                color: white;
+            }
+
+                .btn.btn-success:hover {
+                    background-color: #218838;
+                    color: white;
+                }
+    </style>
+
+</head>
+
+<h2>Add Event</h2>
+
+<p>Fill in the details for the new event:</p>
+
+<form asp-controller="Calendar" asp-action="Create" method="post">
+    <!-- Add form fields for event details here. Example: -->
+    <div>
+        <label for="eventName">Event Name:</label>
+        <input type="text" id="eventName" name="eventName" required>
+    </div>
+    <div>
+        <label for="eventDate">Event Date:</label>
+        <input type="date" id="eventDate" name="eventDate" required>
+    </div>
+    <!-- More fields can be added as needed -->
+
+    <button type="submit" class="btn btn-success">Add Event</button>
+    <a asp-action="Index" class="btn btn-default">Cancel</a>
+</form>
