@@ -143,6 +143,18 @@ a {
     </style>
 </head>
 
+@functions {
+    // Helper method to safely retrieve values from ViewBag
+    (int, int?, int) GetCourseStatus(int courseId)
+    {
+        if (ViewBag.courseStatusResults.ContainsKey(courseId))
+        {
+            return ViewBag.courseStatusResults[courseId];
+        }
+        return (0, null, 0);
+    }
+}
+
 <body>
     <div class="hero">
         <div>
@@ -154,7 +166,6 @@ a {
             </div>
         </div>
     </div>
-
 
     @foreach (var course in Model)
     {
@@ -174,33 +185,37 @@ a {
                     </div>
                 </div>
                 <div class="course-footer">
+                    @{
+                        var courseStatus = GetCourseStatus(course.Id);
+                    }
                     <div class="loading-bar-container">
                         <div class="loading-bar-label-left">Task</div>
                         <div class="loading-bar">
-                            <div class="loading-bar-fill" data-percentage="60%"></div>
+                            <div class="loading-bar-fill" data-percentage="@courseStatus.Item3%"></div>
                         </div>
-                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
+                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">@courseStatus.Item3%</span></div>
                     </div>
 
                     <div class="loading-bar-container">
                         <div class="loading-bar-label-left">Time</div>
                         <div class="loading-bar">
-                            <div class="loading-bar-fill" data-percentage="80%"></div>
+                            <div class="loading-bar-fill" data-percentage="@courseStatus.Item1%"></div>
                         </div>
-                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
+                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">@courseStatus.Item1%</span></div>
                     </div>
 
                     <div class="loading-bar-container">
                         <div class="loading-bar-label-left">Score</div>
                         <div class="loading-bar">
-                            <div class="loading-bar-fill" data-percentage="40%"></div>
+                            <div class="loading-bar-fill" data-percentage="@courseStatus.Item2%"></div>
                         </div>
-                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
+                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">@courseStatus.Item2%</span></div>
                     </div>
                 </div>
             </div>
         </a>
     }
+
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
