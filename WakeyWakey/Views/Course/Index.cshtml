@@ -145,13 +145,13 @@ a {
 
 @functions {
     // Helper method to safely retrieve values from ViewBag
-    (int, int?, int) GetCourseStatus(int courseId)
+    (int, float, int) GetCourseStatus(int courseId)
     {
         if (ViewBag.courseStatusResults.ContainsKey(courseId))
         {
             return ViewBag.courseStatusResults[courseId];
         }
-        return (0, null, 0);
+        return (0, 0, 0);
     }
 }
 

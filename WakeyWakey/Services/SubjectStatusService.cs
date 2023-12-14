@@ -14,17 +14,35 @@ namespace WakeyWakey.Services
 
         //public async Task<float> UpdateSubjectStatuses()
 
-        public async Task<Dictionary<int, (int ProgressTime, int? Score, int subjectProgress)>> GetSubjectStatus(ClaimsPrincipal user)
+        public async Task<Dictionary<int, (int ProgressTime, float Score, int subjectProgress)>> GetSubjectStatus(ClaimsPrincipal user)
         {
             int userId = int.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier));
             var courses = await CourseService.GetAllHierarchyAsync(userId);
 
-            var results = new Dictionary<int, (int ProgressTime, int? Score, int subjectProgress)>();
+            var results = new Dictionary<int, (int ProgressTime, float Score, int subjectProgress)>();
 
             foreach (var course in courses)
             {
                 foreach (var subject in course.Subjects)
                 {
+                    float score = 0;
+                    int progress = 0;
+                    int taskCount = 0;
+
+                    foreach (var task in subject.Tasks)
+                    {
+                        score += (float)task.Score * (float) task.ScoreWeight / 10;
+
+                        taskCount++;
+
+                        if (task.Status == Enums.TaskStatus.Completed)
+                        {
+                            progress++;
+                        }
+                    }
+
+                    int subjectProgress = taskCount == 0 ? 0 : progress * 100 / taskCount;
+
                     DateTime? StartTime = subject.StartDate;
                     DateTime? EndTime = subject.EndDate;
 
@@ -42,22 +60,6 @@ namespace WakeyWakey.Services
 
                     //Console.WriteLine($"ProgressTime: {progressTime} progressPercentage: {progressPercentage}");
 
-                    int? score = 0;
-                    int progress = 0;
-                    int taskCount = 0;
-
-                    foreach (var task in subject.Tasks)
-                    {
-                        score += task.Score * task.ScoreWeight / 10;
-                        taskCount++;
-
-                        if (task.Status == Enums.TaskStatus.Completed)
-                        {
-                            progress++;
-                        }
-                    }
-
-                    int subjectProgress = taskCount == 0 ? 0 : progress / taskCount;
                     results.Add(subject.Id, (progressTime, score, subjectProgress));
                 }
             }

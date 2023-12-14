@@ -166,13 +166,13 @@
 
     @functions {
         // Helper method to safely retrieve values from ViewBag
-        (int, int?, int) GetSubjectStatus(int subjectId)
+        (int, float, int) GetSubjectStatus(int subjectId)
         {
             if (ViewBag.SubjectStatusResults.ContainsKey(subjectId))
             {
                 return ViewBag.SubjectStatusResults[subjectId];
             }
-            return (0, null, 0);
+            return (0, 0, 0);
         }
     }
 
@@ -217,7 +217,7 @@
                 <div class="loading-bar-container">
                     <div class="loading-bar-label-left">Score</div>
                     <div class="loading-bar">
-                        <div class="loading-bar-fill" data-percentage="@subjectStatus.Item2%"></div>
+                        <div class="loading-bar-fill" data-percentage="@(subjectStatus.Item2 * 10)%"></div>
                     </div>
                     <div class="loading-bar-label-right"><span class="loading-bar-percentage">@subjectStatus.Item2%</span></div>
                 </div>
@@ -247,8 +247,3 @@
 
 
 </body>
-
-
-
-
-

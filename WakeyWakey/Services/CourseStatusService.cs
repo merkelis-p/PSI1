@@ -11,16 +11,17 @@ namespace WakeyWakey.Services
         {
             CourseService = courseService;
         }
-        public async Task<Dictionary<int, (int ProgressTime, int? Score, int courseProgress)>> GetCourseStatus(ClaimsPrincipal user)
+        public async Task<Dictionary<int, (int ProgressTime, float Score, int courseProgress)>> GetCourseStatus(ClaimsPrincipal user)
         {
             int userId = int.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier));
             var courses = await CourseService.GetAllHierarchyAsync(userId);
 
-            var results = new Dictionary<int, (int ProgressTime, int? Score, int courseProgress)>();
+            var results = new Dictionary<int, (int ProgressTime, float Score, int courseProgress)>();
 
             foreach (var course in courses)
             {
-                int? score = 0;
+                Console.WriteLine($"Course:{course.Name}\n");
+                float score = 0;
                 int progress = 0;
                 int taskCount = 0;
 
@@ -28,13 +29,15 @@ namespace WakeyWakey.Services
                 {
                     foreach (var task in subject.Tasks)
                     {
-                        score += task.Score * task.ScoreWeight / 10;
+                        score += (float)task.Score * (float)task.ScoreWeight * 3.333f / 10f;
                         taskCount++;
+
 
                         if (task.Status == Enums.TaskStatus.Completed)
                         {
                             progress++;
                         }
+                        Console.WriteLine($"Task: {task.Name}\n taskCount:{taskCount}; progress:{progress}");
                     }
                 }
 
@@ -53,9 +56,10 @@ namespace WakeyWakey.Services
                 }
                 progressTime = (int)progressPercentage;
 
-                int courseProgress = taskCount == 0 ? 0 : progress / taskCount;
-
-                results.Add(course.Id, (progressTime, score, courseProgress));
+                int courseProgress = taskCount == 0 ? 0 : progress * 100 / taskCount;
+                
+                float Score = (float)Math.Round(score, 2);
+                results.Add(course.Id, (progressTime, Score, courseProgress));
             }
             return results;
         }
