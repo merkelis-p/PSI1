@@ -17,18 +17,18 @@ namespace WakeyWakey.Controllers
     {
         private readonly ICourseApiService _courseService;
         private readonly ILogger<CourseController> _logger;
+        private readonly CourseStatusService _courseStatusService;
 
-
-        public CourseController(ICourseApiService courseService, ILogger<CourseController> logger)
+        public CourseController(ICourseApiService courseService, ILogger<CourseController> logger, CourseStatusService courseStatusService)
         {
             _courseService = courseService;
             _logger = logger;
-
+            _courseStatusService = courseStatusService;
         }
         
         public IActionResult Create()
         {
-            return View(new Course());
+            return View(new Course()); ///////// delete new Course() - no need
         }
         
         public async Task<IActionResult> Index()
@@ -37,6 +37,11 @@ namespace WakeyWakey.Controllers
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var courses = await _courseService.GetAllAsync();
             var userCourses = courses.Where(course => course.UserId == userId).ToList();
+
+            var courseStatusResults = await _courseStatusService.GetCourseStatus(User);
+
+            ViewBag.courseStatusResults = courseStatusResults;
+
             return View(userCourses);
         }
 

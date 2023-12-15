@@ -2,22 +2,40 @@
     ViewData["Title"] = "Login";
 }
 
-<style>
-    .login-container {
-        text-align: center;
-    }
+<head>
+    <style>
+        /* Keeping the same theme as other views */
+        .display-4 {
+            font-family: 'Open Sans', sans-serif;
+            color: #34577e;
+            font-weight: bold;
+        }
 
-    .login-input {
-        width: 250px; /* Width of the square input fields */
-        height: 40px; /* Height of the square input fields */
-        margin: 10px auto; /* Center the input fields and add some vertical spacing */
-    }
-</style>
+        /* Custom form styling */
+        .login-container {
+            text-align: center;
+            margin-top: 30px;
+        }
 
+        .login-input {
+            width: 100%; /* Full width inputs */
+            height: 40px;
+            margin: 10px auto; /* Center the input fields and add some vertical spacing */
+        }
+
+        .btn-primary {
+            background-color: #4a8cad; /* Matching button color */
+            border-color: #3b6f85;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #3b6f85; /* Darker shade on hover */
+        }
+    </style>
+</head>
 
 <div class="login-container">
-
-
     @if (!ViewData.ModelState.IsValid)
     {
         <div class="alert alert-danger">
@@ -27,10 +45,9 @@
             }
         </div>
     }
-    <h1 class="display-4">Wakey Wakey - Login</h1>
+    <h1 class="display-4">Login</h1>
 
     <form method="post" asp-controller="Home" asp-action="Login">
-        <!-- Assuming you have a login endpoint set up -->
         <div class="form-group">
             <label for="username">Username:</label><br>
             <input type="text" class="form-control login-input" id="username" name="username" required>
@@ -40,11 +57,6 @@
             <label for="password">Password:</label><br>
             <input type="password" class="form-control login-input" id="password" name="password" required>
         </div>
-
-
-
-
-
 
         <button type="submit" class="btn btn-primary">Login</button>
     </form>

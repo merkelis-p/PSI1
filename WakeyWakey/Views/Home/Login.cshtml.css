@@ -1,0 +1,16 @@
+﻿.login-input {
+    width: 20%; /* Full width inputs */
+    max-width: 400px; /* Maximum width for input fields */
+    height: 40px;
+    margin: 10px auto; /* Center the input fields */
+}
+
+.form-group {
+    text-align: middle; /* Aligns labels and inputs to the left */
+    margin-bottom: 15px; /* Spacing between form groups */
+}
+
+.login-container form {
+    margin: 0 auto; /* Center the form in the container */
+    max-width: 500px; /* Maximum width for the form */
+}

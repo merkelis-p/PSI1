@@ -1,0 +1,27 @@
+﻿@model Record
+
+<head>
+    <link rel="stylesheet" href="~/css/TimeRecorderStyle.css" asp-append-version="true" />
+</head>
+
+<h2>Create Time Recorder</h2>
+
+<form asp-action="Create" method="post">
+    <label asp-for="FocusHours">Study Time Hours:</label>
+    <input asp-for="FocusHours" type="number" id="focusHours" name="focusHours" min="0" value="0" required />
+
+    <label asp-for="FocusMinutes">Study Time Minutes:</label>
+    <input asp-for="FocusMinutes" type="number" id="focusMinutes" name="focusMinutes" min="0" max="59" value="30" required />
+
+    <label asp-for="BreakHours">Break Time Hours:</label>
+    <input asp-for="BreakHours" type="number" id="breakHours" name="breakHours" min="0" value="0" required />
+
+    <label asp-for="BreakMinutes">Break Time Minutes:</label>
+    <input asp-for="BreakMinutes" type="number" id="breakMinutes" name="breakMinutes" min="0" max="59" value="5" required />
+
+    <label asp-for="BreakFrequency">Break Frequency (times):</label>
+    <input asp-for="BreakFrequency" type="number" id="breakFrequency" name="breakFrequency" min="1" value="1" required />
+
+    <button type="submit">Save</button>
+    <a asp-action="Index">Cancel</a>
+</form>

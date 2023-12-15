@@ -1,0 +1,15 @@
+﻿.home-header {
+    margin-top: 30px; /* Adds some space at the top */
+    margin-bottom: 50px; /* More space at the bottom for separation */
+}
+
+.display-4 {
+    font-family: 'Open Sans', sans-serif; /* Consistent font */
+    color: #34577e; /* A calm and professional color */
+    font-weight: bold; /* Making the title stand out */
+}
+
+.lead {
+    font-size: 1.25rem; /* Larger font size for introductory text */
+    color: #6c757d; /* A softer color for the introductory text */
+}
