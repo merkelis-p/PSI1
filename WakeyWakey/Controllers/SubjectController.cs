@@ -12,11 +12,13 @@ namespace WakeyWakey.Controllers
     {
         private readonly ISubjectApiService _subjectService;
         private readonly ILogger<SubjectController> _logger;
+        private readonly SubjectStatusService _subjectStatusService;
 
-        public SubjectController(ISubjectApiService subjectService, ILogger<SubjectController> logger)
+        public SubjectController(ISubjectApiService subjectService, ILogger<SubjectController> logger, SubjectStatusService subjectStatusService)
         {
             _subjectService = subjectService;
             _logger = logger;
+            _subjectStatusService = subjectStatusService;
         }
 
         [HttpGet("Index")]
@@ -27,8 +29,12 @@ namespace WakeyWakey.Controllers
             {
                 ViewBag.IsEmpty = true;
                 ViewBag.CourseId = courseId;
-                return View(new List<Subject>()); 
+                return View(new List<Subject>());
             }
+
+            var subjectStatusResults = await _subjectStatusService.GetSubjectStatus(User);
+
+            ViewBag.SubjectStatusResults = subjectStatusResults;
 
             return View(subjects);
         }
