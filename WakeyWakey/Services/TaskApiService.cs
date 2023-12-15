@@ -82,7 +82,7 @@ public class TaskApiService : ApiService<Models.Task>, ITaskApiService
     {
         try
         {
-            var response = await _httpClient.GetAsync($"api/Task/GetTasksWithHierarchyByUserId/{userId}");
+            var response = await _httpClient.GetAsync($"api/Task/GetAllHierarchy/{userId}");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();

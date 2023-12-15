@@ -16,7 +16,7 @@ public class EventApiService : ApiService<Event>, IEventApiService
     {
         try
         {
-            var response = await _httpClient.GetAsync($"api/Event/GetEventsByUser/{userId}");
+            var response = await _httpClient.GetAsync($"api/Event/GetByUserId/{userId}");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();

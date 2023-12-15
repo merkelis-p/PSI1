@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using WakeyWakey.Enums;
 using WakeyWakey.Services;
 using WakeyWakey.Models;
 
@@ -12,17 +13,15 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class TaskController : Controller
     {
-        private readonly ITaskApiService _taskService;
+       private readonly ITaskApiService _taskService;
         private readonly ICourseApiService _courseService;
-
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ITaskApiService taskService, ICourseApiService courseService,  ILogger<TaskController> logger)
+        public TaskController(ITaskApiService taskService, ICourseApiService courseService, ILogger<TaskController> logger)
         {
             _taskService = taskService;
             _courseService = courseService;
             _logger = logger;
-            
         }
 
         public async Task<IActionResult> Index()
@@ -31,24 +30,24 @@ namespace WakeyWakey.Controllers
             var tasks = await _taskService.GetTasksWithHierarchyByUserIdAsync(userId);
             return View(tasks);
         }
-        
+
         public async Task<IActionResult> Create()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var courses = await _courseService.GetAllHierarchyAsync(userId);
-            // print courses to the logger
+
             _logger.LogInformation($"Courses: {JsonConvert.SerializeObject(courses)}");
 
             var hierarchySelectList = new List<SelectListItem>();
             foreach (var course in courses)
             {
-                // Use optgroup to group subjects under courses
                 hierarchySelectList.Add(new SelectListItem 
                 { 
                     Text = $"Course: {course.Name}", 
                     Value = $"Course-{course.Id}", 
-                    Disabled = true // Disable selection of courses
+                    Disabled = true
                 });
+
                 foreach (var subject in course.Subjects)
                 {
                     hierarchySelectList.Add(new SelectListItem 
@@ -70,25 +69,21 @@ namespace WakeyWakey.Controllers
 
             ViewBag.HierarchySelectList = hierarchySelectList;
 
-            var taskModel = new Models.Task() 
+            var taskModel = new Models.Task 
             {
                 UserId = userId,
-                Status = 0, 
-                Category = 0
+                Status = Enums.TaskStatus.Incompleted, 
+                Category = TaskCategory.Assignment
             };
 
             return View(taskModel);
         }
-        
-        
-        [HttpPost]
-        public async Task<IActionResult> Create(Models.Task task)
-        {
-            
-            task.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)); // Set the UserId for the task
 
-            _logger.LogInformation("Create method called.");
-    
+        [HttpPost]
+        public async Task<IActionResult> Create(Models.Task task, string subjectOrTaskId)
+        {
+            task.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
             if (!ModelState.IsValid)
             {
                 foreach (var modelState in ViewData.ModelState.Values)
@@ -98,14 +93,29 @@ namespace WakeyWakey.Controllers
                         _logger.LogError(error.ErrorMessage);
                     }
                 }
-            } else 
-            {
-                await _taskService.AddAsync(task);
-                return RedirectToAction(nameof(Index));
+                return View(task);
             }
-            return View(task);
-        }
 
+            // Parse subjectOrTaskId and set either SubjectId or ParentId
+            if (subjectOrTaskId.StartsWith("Subject-"))
+            {
+                task.SubjectId = int.Parse(subjectOrTaskId.Split('-')[1]);
+            }
+            else if (subjectOrTaskId.StartsWith("Task-"))
+            {
+                task.ParentId = int.Parse(subjectOrTaskId.Split('-')[1]);
+            }
+
+            if (!task.IsValidAssignment())
+            {
+                // Handle invalid assignment
+                ModelState.AddModelError("", "Invalid subject or task assignment.");
+                return View(task);
+            }
+
+            await _taskService.AddAsync(task);
+            return RedirectToAction(nameof(Index));
+        }
         public async Task<IActionResult> Edit(int id)
         {
             var task = await _taskService.GetByIdAsync(id);
