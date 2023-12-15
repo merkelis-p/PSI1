@@ -2,13 +2,57 @@
     ViewData["Title"] = "Settings";
 }
 
-<div class="text-center">
+<head>
+    <style>
+        .display-4 {
+            font-family: 'Open Sans', sans-serif;
+            color: #34577e;
+            font-weight: bold;
+        }
+
+        .settings-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .settings-form {
+            margin: 20px auto;
+            max-width: 500px; /* Setting a max-width for the form */
+            padding: 20px;
+            border: 1px solid #ddd; /* Optional: adds a subtle border */
+            border-radius: 5px; /* Optional: rounds the corners of the form */
+        }
+
+        .settings-form label {
+            display: block; /* Makes the label take the full width */
+            margin-bottom: 10px; /* Adds space below the label */
+        }
+
+        .settings-form input[type="file"] {
+            display: block;
+            margin: 0 auto 20px; /* Centers the file input and adds space below */
+        }
+
+        .settings-form.btn {
+            background-color: #4a8cad; /* Matching button color */
+            border-color: #3b6f85;
+            color: #fff;
+            padding: 10px 15px; /* Adds padding for a larger, more clickable area */
+            border-radius: 5px; /* Rounded corners for the button */
+        }
+
+        .btn:hover {
+            background-color: #3b6f85; /* Darker shade on hover */
+        }
+    </style>
+</head>
+
+<div class="settings-container">
     <h1 class="display-4">Wakey Wakey - Settings</h1>
 
-
+    <form method="post" enctype="multipart/form-data" asp-controller="Dashboard" asp-action="Upload" class="settings-form">
+        <label for="icsFile">Upload your calendar (ICS format)</label>
+        <input type="file" name="icsFile" accept=".ics" />
+        <button type="submit" class="btn">Upload</button>
+    </form>
 </div>
-<form method="post" enctype="multipart/form-data" asp-controller="Dashboard" asp-action="Upload">
-    <label for="icsFile">Upload your calendar (ICS format)</label>
-    <input type="file" name="icsFile" accept=".ics" />
-    <button type="submit">Upload</button>
-</form>

@@ -1,0 +1,16 @@
+﻿.dashboard-header {
+    margin-top: 20px; /* Adds some space at the top */
+    margin-bottom: 40px; /* More space at the bottom for separation */
+}
+
+.display-4 {
+    font-family: 'Open Sans', sans-serif; /* Consistent font */
+    color: #34577e; /* Soft color that's easy on the eyes */
+    font-weight: bold; /* Making the title stand out */
+}
+
+/* Font Awesome icon styling */
+.dashboard-header .fas {
+    margin-right: 10px; /* Space between icon and text */
+    color: #3b6f85; /* Slightly darker shade for the icon */
+}
