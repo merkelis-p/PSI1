@@ -100,6 +100,21 @@ namespace WakeyWakey.Controllers
                 }
             } else 
             {
+
+                if (!string.IsNullOrEmpty(task.SubjectOrTaskId))
+                {
+                    string[] parts = task.SubjectOrTaskId.Split('-');
+
+                    if (parts.Length >= 2 && int.TryParse(parts[1], out int subjectId))
+                    {
+                        task.SubjectId = subjectId;
+                    }
+                    else
+                    {
+                        _logger.LogError("Invalid SubjectOrTaskId format: " + task.SubjectOrTaskId);
+                    }
+                }
+
                 await _taskService.AddAsync(task);
                 return RedirectToAction(nameof(Index));
             }
