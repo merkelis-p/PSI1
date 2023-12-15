@@ -20,7 +20,6 @@ namespace WakeyWakey.Services
 
             foreach (var course in courses)
             {
-                Console.WriteLine($"Course:{course.Name}\n");
                 float score = 0;
                 int progress = 0;
                 int taskCount = 0;
@@ -37,7 +36,6 @@ namespace WakeyWakey.Services
                         {
                             progress++;
                         }
-                        Console.WriteLine($"Task: {task.Name}\n taskCount:{taskCount}; progress:{progress}");
                     }
                 }
 
