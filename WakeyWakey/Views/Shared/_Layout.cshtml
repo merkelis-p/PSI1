@@ -1,4 +1,4 @@
-﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -138,13 +138,15 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Record" asp-action="Index">Time Recorder</a>
+                            </li>
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Settings">
                                     <i class="fas fa-cog"></i> @Context.User.Identity.Name - Settings
                                 </a>
                             </li>
-
 
                             <li class="nav-item">
                                 <form asp-area="" asp-controller="Home" asp-action="Logout" method="post">

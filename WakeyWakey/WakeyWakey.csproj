@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Record\Partial\" />
     <Folder Include="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>

@@ -28,7 +28,7 @@ namespace WakeyWakey.Controllers
         
         public IActionResult Create()
         {
-            return View(new Course());
+            return View(new Course()); ///////// delete new Course() - no need
         }
         
         public async Task<IActionResult> Index()

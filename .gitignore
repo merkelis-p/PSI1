@@ -75,4 +75,10 @@ bld/
 .vs/WakeyWakey/xs/project-cache/WakeyWakey-Debug-net7.0-maccatalyst.json
 .vs/WakeyWakey/xs/project-cache/WakeyWakey-Debug-net7.0-android.json
 
+.vs
+/.vs/WakeyWakey/DesignTimeBuild/.dtbcache.v2
+/.vs/WakeyWakey/v17/.futdcache.v2
+/.vs/WakeyWakey/DesignTimeBuild/.dtbcache.v2
+/.vs/WakeyWakey/v17/.futdcache.v2
+
 /WakeyWakey/appsettings.json
