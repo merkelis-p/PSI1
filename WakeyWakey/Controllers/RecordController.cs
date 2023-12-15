@@ -185,10 +185,10 @@ public class RecordController : Controller
         var startTime = DateTime.Now;
 
         // Simulate starting the timer in a separate thread
-        Task.Run(() =>
-        {
+        //Task.Run(() =>
+        //{
             // _RecordService.StartTimer(id, startTime);
-        });
+        //});
 
         return RedirectToAction("Index");
     }
