@@ -23,6 +23,7 @@
     <None Remove="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Services\" />
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Calendar\" />
   </ItemGroup>
