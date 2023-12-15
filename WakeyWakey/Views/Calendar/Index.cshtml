@@ -1,0 +1,98 @@
+﻿@model IEnumerable<WakeyWakey.Models.Event>
+@{
+    ViewBag.title = "Calendar";
+}
+<style>
+    h2.calendar-title {
+        text-align: center;
+        color: #34577e;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 3em;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    #calendar {
+        max-width: 1100px;
+        margin: 40px auto;
+        background-color: #fff; /* White background like course cards */
+        border-radius: 20px; /* Rounded corners */
+        box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1); /* Subtle shadow */
+        padding: 20px;
+    }
+
+    /* Calendar header to match the course header */
+    .fc-header {
+        background-color: #d0e0fb; /* Light blue background */
+        color: #34577e; /* Matching text color */
+        padding: 20px;
+        border-bottom: 2px solid #e4e4e4; /* Bottom border */
+        border-radius: 20px 20px 0 0; /* Rounded corners on top */
+    }
+
+    /* Calendar title to match course titles */
+    .fc-header-title h2 {
+        font-size: 1.5em; /* Larger title */
+        color: black;
+        margin: 0;
+    }
+
+    /* Calendar buttons to match edit/delete/create buttons */
+    .fc-button {
+        background-color: #0099cc; /* Blue background */
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 15px; /* Rounded corners */
+        font-size: 0.9em;
+        margin: 0 5px;
+    }
+
+    .fc-button:hover {
+        background-color: #1370bb; /* Darker shade on hover */
+    }
+
+/*    .fc-header-title h2 {
+        color: #23395d;
+        font-family: 'Open Sans', sans-serif;
+    }*/
+</style>
+
+<link rel="stylesheet" href="~/css/fullcalendar.min.css" />
+
+<h2 class="calendar-title">Calendar</h2>
+<div id="calendar"></div>
+
+@section scripts{
+    <script src="~/scripts/jquery.min.js"></script>
+    <script src="~/scripts/moment.min.js"></script>
+    <script src="~/scripts/FullCalendar.2.2.5.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                header : {
+                    left : 'prev,next today',
+                    center : 'title',
+                    right : 'month,agendaWeek,agendaDay'
+                },
+                defaultDate : '@DateTime.Now',
+                defaultView : 'month',
+                editable: true,
+                duration: { weeks: 1 },
+                events: [
+                    @foreach (var calendarEvent in Model)
+                    {
+                    <text>{</text>
+                    <text>title: '@calendarEvent.Name',</text>
+                    <text>start: '@calendarEvent.StartDate'</text>
+                    <text>}</text>
+                    if (calendarEvent != Model.Last())
+                    {
+                    <text>,</text>
+                    }
+                    }
+                ]
+            })
+        })
+    </script>
+}

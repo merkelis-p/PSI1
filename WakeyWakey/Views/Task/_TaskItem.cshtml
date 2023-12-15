@@ -1,0 +1,45 @@
+@using TaskStatus = WakeyWakey.Enums.TaskStatus
+@model WakeyWakey.Models.Task
+
+<div class="task" data-task-id="@Model.Id">
+    <div class="task-header">
+        <input type="checkbox" class="task-completed-checkbox" @if(Model.Status == TaskStatus.Completed) { <text>checked</text> } />
+        <span class="task-name">@Model.Name</span>
+        @if (Model.Subtasks.Any())
+        {
+            <button class="btn task-toggle">-</button>
+        }
+    </div>
+
+    <div class="task-details">
+        <p>@Model.Description</p>
+        <!-- Other task details can be added here -->
+    </div>
+
+    @if (Model.Subtasks.Any())
+    {
+        <div class="subtasks">
+            @foreach (var subtask in Model.Subtasks)
+            {
+                @Html.Partial("_TaskItem", subtask) // Recursively render subtasks
+            }
+        </div>
+    }
+</div>
+
+<!--<script>
+
+document.querySelectorAll('.task-toggle').forEach(button => {
+    button.addEventListener('click', function() {
+        const taskId = this.closest('.task').getAttribute('data-task-id');
+        const subtasks = document.querySelector(`.task[data-task-id="${taskId}"] .subtasks`);
+        if (subtasks) {
+            const isHidden = subtasks.style.display === 'none';
+            subtasks.style.display = isHidden ? 'block' : 'none';
+            this.innerText = isHidden ? '-' : '+';
+        }
+    });
+});
+
+
+</script>-->

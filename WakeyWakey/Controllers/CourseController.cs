@@ -7,6 +7,7 @@ using WakeyWakey.Services;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 
 namespace WakeyWakey.Controllers
@@ -14,15 +15,15 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class CourseController : Controller
     {
-        private readonly ApiService<Course> _courseService;
+        private readonly ICourseApiService _courseService;
         private readonly ILogger<CourseController> _logger;
+        private readonly CourseStatusService _courseStatusService;
 
-
-        public CourseController(ApiService<Course> courseService, ILogger<CourseController> logger)
+        public CourseController(ICourseApiService courseService, ILogger<CourseController> logger, CourseStatusService courseStatusService)
         {
             _courseService = courseService;
             _logger = logger;
-
+            _courseStatusService = courseStatusService;
         }
         
         public IActionResult Create()
@@ -36,6 +37,11 @@ namespace WakeyWakey.Controllers
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var courses = await _courseService.GetAllAsync();
             var userCourses = courses.Where(course => course.UserId == userId).ToList();
+
+            var courseStatusResults = await _courseStatusService.GetCourseStatus(User);
+
+            ViewBag.courseStatusResults = courseStatusResults;
+
             return View(userCourses);
         }
 
@@ -57,6 +63,7 @@ namespace WakeyWakey.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 await _courseService.AddAsync(course);
                 return RedirectToAction(nameof(Index));
             }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,12 +8,102 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WakeyWakey.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WakeyWakey.styles.css" asp-append-version="true" />
+    <style>
+        /* Header and Navbar */
+        .navbar {
+            padding: 10px 0;
+            background-color: #d0e0fb; /* Soft educational blue */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .navbar-brand, .nav-link {
+            font-size: 1.5em;
+            color: #34577e; /* Darker shade for contrast */
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .navbar-nav .nav-link, .btn-link {
+            font-size: 1.1em; /* Slightly larger font for navigation items */
+            padding: 0.5rem 1rem; /* Adjust padding for larger touch targets */
+            /* ... existing styles ... */
+        }
+
+        .btn-primary, .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+            /* Make primary buttons more prominent */
+            font-size: 1.1em; /* Larger font size */
+            padding: 0.6rem 1.2rem; /* Increased padding */
+            background-color: #3174ad; /* A more vibrant blue */
+            /* ... existing styles ... */
+        }
+
+        .btn-primary:hover, .nav-pills .nav-link.active:hover, .nav-pills .show > .nav-link:hover {
+            background-color: #285e8e; /* Darker blue on hover */
+            /* ... existing styles ... */
+        }
+
+
+        /*.navbar-nav .nav-item .btn-link {
+            padding: 0.5rem 1rem;*/ /* Adjust padding to match other nav links */
+            /*margin: 0;*/ /* Ensure no extra margin */
+            /*line-height: inherit;*/ /* Align line height with other nav items */
+        /*}
+
+        .navbar-nav .nav-item form {
+            display: inline-block;*/ /* Makes the form align properly with other nav items */
+        /*}*/
+
+        .navbar-brand:hover, .nav-link:hover {
+            color: #23395d;  Slightly darker on hover 
+        }
+
+        /* Main Content */
+        .container {
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50; /* Darker blue for footer */
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #4a4a4a; /* Slightly darker font for readability */
+        }
+
+        /* Button Style */
+        .btn-link {
+            color: #4a8cad; /* Soft blue for buttons */
+            border: none;
+            background-color: transparent;
+            padding: .5rem 1rem;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            color: #3b6f85; /* Darker shade on hover */
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light-blue border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WakeyWakey</a>
+                @if (Context.User.Identity.IsAuthenticated)
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="Index">WakeyWakey</a>
+
+                }
+                else
+                {
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WakeyWakey</a>
+                }
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,19 +114,28 @@
                         {
 
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
                             </li>
-                            
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">Courses</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Calendar" asp-action="Index">
+                                    <i class="fas fa-calendar-alt"></i> Calendar
+                                </a>
                             </li>
-                            
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Subject" asp-action="Index">Subjects</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Course" asp-action="Index">
+                                    <i class="fas fa-book"></i> Courses
+                                </a>
                             </li>
-                            
+
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Settings">@Context.User.Identity.Name - Settings</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Task" asp-action="Index">
+                                    <i class="fas fa-tasks"></i> Tasks
+                                </a>
                             </li>
 
                             <li class="nav-item">
@@ -43,25 +143,28 @@
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="Settings">
+                                    <i class="fas fa-cog"></i> @Context.User.Identity.Name - Settings
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <form asp-area="" asp-controller="Home" asp-action="Logout" method="post">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                    <button type="submit" class="nav-link btn btn-link text-dark">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
                                 </form>
                             </li>
 
                         }
                         else
                         {
-
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">
+                                    <i class="fas fa-sign-in-alt"></i> Login
+                                </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                            </li>
                         }
                     </ul>
                 </div>
@@ -74,9 +177,13 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-dark-blue" style="margin-left: 0; padding-left: 0;">
+        <div class="container">
+            &copy; @DateTime.Now.Year - WakeyWakey
+        </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!--<script src="~/lib/jquery/dist/jquery.min.js"></script>-->
+    <script src="~/scripts/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

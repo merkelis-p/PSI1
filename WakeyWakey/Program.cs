@@ -15,11 +15,15 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true; // Makes the session cookie inaccessible to JavaScript
 });
 
-builder.Services.AddScoped<ApiService<Event>>();
-builder.Services.AddScoped<ApiService<User>>(); // cia reikia pakeisti i IApiService
-builder.Services.AddScoped<ApiService<Course>>();
-builder.Services.AddScoped<ApiService<Record>>();
+
+builder.Services.AddScoped<IUserApiService, UserApiService>();
+builder.Services.AddScoped <ITaskApiService, TaskApiService>();
+builder.Services.AddScoped<ICourseApiService, CourseApiService>();
+builder.Services.AddScoped<ISubjectApiService, SubjectApiService>();
+builder.Services.AddScoped<IEventApiService, EventApiService>();
 builder.Services.AddScoped<SubjectStreamReader>();
+builder.Services.AddScoped<SubjectStatusService>();
+builder.Services.AddScoped<CourseStatusService>();
 
 
 // Add Authentication services
@@ -35,15 +39,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/ Home/Error");
+    app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-void ConfigureServices(IServiceCollection services)
-{
-    services.AddScoped<SubjectStreamReader>();
-}
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -57,8 +56,10 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Define default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+

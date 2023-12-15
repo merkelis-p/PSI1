@@ -4,9 +4,13 @@
 }
 @model List<WakeyWakey.Models.Course>
 <head>
+    <title>@ViewData["Title"]</title>
     <style>   
 
-
+a {
+    text-decoration: none;
+    color: black;
+}
 
 .hero {
     display: flex;
@@ -17,9 +21,10 @@
         text-align: right;
     }
 
-h1 {
+ h1 {
     text-align: Left;
     margin-bottom: 40px;
+    color: black;
 }
 
 .course {
@@ -27,7 +32,7 @@ h1 {
     border-radius: 20px;
     margin-bottom: 20px;
     cursor: pointer;
-    transition: 0.5 s ease;
+    transition: 0.5s ease;
     box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1);
     -webkit-box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1);
     -moz-box-shadow: 1px 9px 14px 7px rgba(0,0,0,0.1);
@@ -48,6 +53,7 @@ h1 {
 
     .course-header > div {
         flex: 1;
+        color: black;
     }
 
     .course-header .course-right-header {
@@ -87,18 +93,12 @@ h1 {
 
 .loading-bar-fill {
     background-color: #0099cc;
-    width: 0%;
+    width: 0;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     transition: width 1s;
-}
-
-.loading-bar-label {
-    margin-top: 10px;
-    text-align: center;
-    font-family: Arial, sans-serif;
 }
 
 .loading-bar-percentage {
@@ -112,7 +112,6 @@ h1 {
     border: none;
     transition: 0.2s ease;
 }
-
 
     .btn.edit, .btn.create {
         background-color: #0099cc;
@@ -144,6 +143,18 @@ h1 {
     </style>
 </head>
 
+@functions {
+    // Helper method to safely retrieve values from ViewBag
+    (int, float, int) GetCourseStatus(int courseId)
+    {
+        if (ViewBag.courseStatusResults.ContainsKey(courseId))
+        {
+            return ViewBag.courseStatusResults[courseId];
+        }
+        return (0, 0, 0);
+    }
+}
+
 <body>
     <div class="hero">
         <div>
@@ -156,55 +167,55 @@ h1 {
         </div>
     </div>
 
-    
-
-
     @foreach (var course in Model)
     {
-        <div class="course">
-            <div class="course-header">
-                <div>
-                    <h2>@course.Name</h2>
-                    <p>@course.Description</p>
-                </div>
-                <div class="course-right-header">
-                    <p>@course.StartDate.Year - @course.EndDate.Year</p>
+        <a asp-controller="Subject" asp-action="Index" asp-route-courseId="@course.Id">
+            <div class="course">
+                <div class="course-header">
                     <div>
-                        <a href="@Url.Action("Edit", "Course", new { id = course.Id })" class="btn edit">Edit</a>
-                        <a href="@Url.Action("Delete", "Course", new { id = course.Id })" class="btn delete">Delete</a>
+                        <h2>@course.Name</h2>
+                        <p>@course.Description</p>
+                    </div>
+                    <div class="course-right-header">
+                        <p>@course.StartDate.Year - @course.EndDate.Year</p>
+                        <div>
+                            <a href="@Url.Action("Edit", "Course", new { id = course.Id })" class="btn edit">Edit</a>
+                            <a href="@Url.Action("Delete", "Course", new { id = course.Id })" class="btn delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-footer">
+                    @{
+                        var courseStatus = GetCourseStatus(course.Id);
+                    }
+                    <div class="loading-bar-container">
+                        <div class="loading-bar-label-left">Task</div>
+                        <div class="loading-bar">
+                            <div class="loading-bar-fill" data-percentage="@courseStatus.Item3%"></div>
+                        </div>
+                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">@courseStatus.Item3%</span></div>
+                    </div>
+
+                    <div class="loading-bar-container">
+                        <div class="loading-bar-label-left">Time</div>
+                        <div class="loading-bar">
+                            <div class="loading-bar-fill" data-percentage="@courseStatus.Item1%"></div>
+                        </div>
+                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">@courseStatus.Item1%</span></div>
+                    </div>
+
+                    <div class="loading-bar-container">
+                        <div class="loading-bar-label-left">Score</div>
+                        <div class="loading-bar">
+                            <div class="loading-bar-fill" data-percentage="@courseStatus.Item2%"></div>
+                        </div>
+                        <div class="loading-bar-label-right"><span class="loading-bar-percentage">@courseStatus.Item2%</span></div>
                     </div>
                 </div>
             </div>
-            <div class="course-footer">
-                <!-- Assuming Task, Time, and Score loading bars represent data related to a course. 
-                     The exact implementation will depend on the data available in your Course model. 
-                     For now, using static values, but you can replace with dynamic data from the course. -->
-                <div class="loading-bar-container">
-                    <div class="loading-bar-label-left">Task</div>
-                    <div class="loading-bar">
-                        <div class="loading-bar-fill" data-percentage="60%"></div>
-                    </div>
-                    <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
-                </div>
-
-                <div class="loading-bar-container">
-                    <div class="loading-bar-label-left">Time</div>
-                    <div class="loading-bar">
-                        <div class="loading-bar-fill" data-percentage="80%"></div>
-                    </div>
-                    <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
-                </div>
-
-                <div class="loading-bar-container">
-                    <div class="loading-bar-label-left">Score</div>
-                    <div class="loading-bar">
-                        <div class="loading-bar-fill" data-percentage="40%"></div>
-                    </div>
-                    <div class="loading-bar-label-right"><span class="loading-bar-percentage">0%</span></div>
-                </div>
-            </div>
-        </div>
+        </a>
     }
+
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {

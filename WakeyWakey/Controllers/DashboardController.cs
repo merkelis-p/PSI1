@@ -13,9 +13,9 @@ namespace WakeyWakey.Controllers
     [Authorize]
     public class DashboardController : Controller
     {
-        ApiService<Event> _apiService;
+        IEventApiService _apiService;
 
-        public DashboardController(ApiService<Event> apiService)
+        public DashboardController(IEventApiService apiService)
         {
             _apiService = apiService;
         }
@@ -29,7 +29,7 @@ namespace WakeyWakey.Controllers
         {
             return View();
         }
-        
+
 
         [HttpPost]
         public async Task<IActionResult> Upload(IFormFile icsFile)

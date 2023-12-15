@@ -20,10 +20,12 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Views\Dashboard\" />
+    <None Remove="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Dashboard\" />
     <Folder Include="Views\Record\Partial\" />
+    <Folder Include="Views\Calendar\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
