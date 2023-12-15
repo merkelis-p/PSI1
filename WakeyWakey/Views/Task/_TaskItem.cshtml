@@ -5,16 +5,28 @@
     <div class="task-header">
         <input type="checkbox" class="task-completed-checkbox" @if(Model.Status == TaskStatus.Completed) { <text>checked</text> } />
         <span class="task-name">@Model.Name</span>
-        @if (Model.Subtasks.Any())
-        {
-            <button class="btn task-toggle">-</button>
-        }
+        <a href="@Url.Action("Edit", "Task", new { id = Model.Id })" class="btn edit-task">Edit</a>
     </div>
+
+    <!-- Rest of your task item content -->
+
+</div>
 
     <div class="task-details">
         <p>@Model.Description</p>
-        <!-- Other task details can be added here -->
+        <p>Category: @Model.Category</p>
+        <p>Estimated Duration: @Model.EstimatedDuration</p>
+        <p>Overall Duration: @Model.OverallDuration</p>
+        <p>Deadline: @(Model.DeadlineDate.HasValue ? Model.DeadlineDate.Value.ToString("yyyy-MM-dd") : "N/A")</p>
+        <p>Score: @Model.Score</p>
+        <p>Score Weight: @Model.ScoreWeight</p>
+        <p>Status: @Model.Status</p>
     </div>
+    
+    <div class="task-extra-info" id="extra-info-@Model.Id">
+        <!-- This will be filled with JavaScript -->
+    </div>
+    
 
     @if (Model.Subtasks.Any())
     {
