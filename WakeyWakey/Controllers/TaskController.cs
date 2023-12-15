@@ -17,12 +17,12 @@ namespace WakeyWakey.Controllers
 
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ITaskApiService taskService, ICourseApiService courseService,  ILogger<TaskController> logger)
+        public TaskController(ITaskApiService taskService, ICourseApiService courseService, ILogger<TaskController> logger)
         {
             _taskService = taskService;
             _courseService = courseService;
             _logger = logger;
-            
+
         }
 
         public async Task<IActionResult> Index()
@@ -31,7 +31,7 @@ namespace WakeyWakey.Controllers
             var tasks = await _taskService.GetTasksWithHierarchyByUserIdAsync(userId);
             return View(tasks);
         }
-        
+
         public async Task<IActionResult> Create()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -43,25 +43,25 @@ namespace WakeyWakey.Controllers
             foreach (var course in courses)
             {
                 // Use optgroup to group subjects under courses
-                hierarchySelectList.Add(new SelectListItem 
-                { 
-                    Text = $"Course: {course.Name}", 
-                    Value = $"Course-{course.Id}", 
+                hierarchySelectList.Add(new SelectListItem
+                {
+                    Text = $"Course: {course.Name}",
+                    Value = $"Course-{course.Id}",
                     Disabled = true // Disable selection of courses
                 });
                 foreach (var subject in course.Subjects)
                 {
-                    hierarchySelectList.Add(new SelectListItem 
-                    { 
-                        Text = $"Subject: {subject.Name}", 
+                    hierarchySelectList.Add(new SelectListItem
+                    {
+                        Text = $"Subject: {subject.Name}",
                         Value = $"Subject-{subject.Id}"
                     });
 
                     foreach (var task in subject.Tasks)
                     {
-                        hierarchySelectList.Add(new SelectListItem 
-                        { 
-                            Text = $"-- Task: {task.Name}", 
+                        hierarchySelectList.Add(new SelectListItem
+                        {
+                            Text = $"-- Task: {task.Name}",
                             Value = $"Task-{task.Id}"
                         });
                     }
@@ -70,25 +70,27 @@ namespace WakeyWakey.Controllers
 
             ViewBag.HierarchySelectList = hierarchySelectList;
 
-            var taskModel = new Models.Task() 
+            var taskModel = new Models.Task()
             {
                 UserId = userId,
-                Status = 0, 
+                Status = 0,
                 Category = 0
             };
 
             return View(taskModel);
         }
-        
-        
+
+
         [HttpPost]
         public async Task<IActionResult> Create(Models.Task task)
         {
-            
+
             task.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)); // Set the UserId for the task
 
             _logger.LogInformation("Create method called.");
-    
+
+            //Console.WriteLine($"task.SubjectOrTaskId: {task.SubjectOrTaskId}");
+
             if (!ModelState.IsValid)
             {
                 foreach (var modelState in ViewData.ModelState.Values)
@@ -98,10 +100,24 @@ namespace WakeyWakey.Controllers
                         _logger.LogError(error.ErrorMessage);
                     }
                 }
-            } else 
+            }
+            else
             {
-                await _taskService.AddAsync(task);
-                return RedirectToAction(nameof(Index));
+                if (!string.IsNullOrEmpty(task.SubjectOrTaskId))
+                {
+                    string[] parts = task.SubjectOrTaskId.Split('-');
+
+                    if (parts.Length >= 2 && int.TryParse(parts[1], out int subjectId))
+                    {
+                        task.SubjectId = subjectId;
+                    }
+                    else
+                    {
+                        _logger.LogError("Invalid SubjectOrTaskId format: " + task.SubjectOrTaskId);
+                    }
+                    await _taskService.AddAsync(task);
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(task);
         }
@@ -171,7 +187,7 @@ namespace WakeyWakey.Controllers
             await _taskService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
-        
+
 
 
 

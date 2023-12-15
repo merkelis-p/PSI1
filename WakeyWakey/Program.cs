@@ -22,6 +22,8 @@ builder.Services.AddScoped<ICourseApiService, CourseApiService>();
 builder.Services.AddScoped<ISubjectApiService, SubjectApiService>();
 builder.Services.AddScoped<IEventApiService, EventApiService>();
 builder.Services.AddScoped<SubjectStreamReader>();
+builder.Services.AddScoped<SubjectStatusService>();
+builder.Services.AddScoped<CourseStatusService>();
 
 
 // Add Authentication services
